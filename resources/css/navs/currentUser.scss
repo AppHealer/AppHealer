@@ -1,0 +1,30 @@
+nav.currentUser {
+	.name {
+		width: 220px;
+		border: 1px solid $colorBase;
+		border-radius: 13px;
+		background-color: lightgrey;
+		padding: 3px;
+		text-align:left;
+		font-weight: bold;
+		font-size: 17px;
+		height: 40px;
+		overflow: hidden;
+
+		span {
+			display:inline-block;
+			padding:3px 0px 0px 4px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+			width: 140px;
+		}
+
+		.photo {
+			width: 30px;
+			border-radius: 10px;
+			margin-left: 4px;
+			vertical-align: top;
+		}
+	}
+}

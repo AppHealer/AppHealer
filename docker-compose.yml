@@ -1,0 +1,67 @@
+version: "3"
+services:
+
+  database:
+    image: mariadb
+    restart: always
+    ports:
+      - '3307:3306'
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      MYSQL_USER: apphealer
+      MYSQL_PASSWORD: apphealer
+      MYSQL_ROOT_PASSWORD: apphealer
+      MYSQL_DATABASE: apphealer
+
+  web:
+    image: nginx
+    tty: true
+
+    ports:
+      - '8081:80'
+      - '443:443'
+    volumes:
+      - ./docker/conf/nginx/:/etc/nginx/conf.d
+      - ./:/var/www
+    links:
+      - phpfpm
+      - database
+    depends_on:
+      - phpfpm
+      - database
+
+
+  phpfpm:
+      build:
+        context: ./
+        dockerfile: docker/dockerfiles/php
+      tty: true
+      stdin_open: true
+      links:
+        - database
+      depends_on:
+        - database
+      volumes:
+        - ./:/var/www
+        - /etc/timezone:/etc/timezone:ro
+
+  frontendbuilder:
+    image: node
+    volumes:
+      - .:/var/www
+    tty: true
+    working_dir: /var/www
+    command: sh -c "npm install && npm run build"
+
+
+
+
+volumes:
+  phpfpm:
+    driver: local
+  web:
+    driver: local
+  database:
+    driver: local

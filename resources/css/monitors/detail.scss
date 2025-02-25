@@ -1,0 +1,43 @@
+.summary {
+	.availability {
+		margin-right: 40px;
+		margin-left: 50px;
+	}
+
+	.availability {
+		font-weight: bold;
+		.ok {
+			color: darkgreen;
+		}
+
+		.failed {
+			color: darkred;
+		}
+	}
+
+	.timeout, .availability {
+		h3 {
+			margin: 0px;
+			font-size: 120%;
+		}
+
+		h4 {
+			font-size: 100%;
+			margin-bottom: 2px;
+		}
+
+		.mainValue {
+			font-weight: bold;
+			margin:auto;
+			font-size: 170%;
+		}
+
+		.percent {
+			font-size: 170%;
+		}
+
+		.value {
+		font-size: 130%;
+		}
+	}
+}

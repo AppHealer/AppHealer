@@ -1,0 +1,11 @@
+nav.main {
+	padding-left:15px;
+	a {
+		font-weight:bold;
+		color: $colorDarkGray;
+	}
+
+	a.active {
+		text-decoration: none;
+	}
+}

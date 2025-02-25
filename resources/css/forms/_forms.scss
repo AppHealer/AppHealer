@@ -1,0 +1,31 @@
+@import 'login.scss';
+@import 'monitorFilter.scss';
+
+.btn, .btn:hover {
+  width:150px;
+  color: $colorBase;
+  border-color: $colorBase;
+  font-weight:bold;
+  background-color: #4a5568;
+}
+
+.btnBack, .btnBack:hover {
+  width:150px;
+  color: #000;
+  border-color: $colorDarkGray;
+  font-weight:bold;
+  background-color:  $colorLightGray;
+
+}
+
+fieldset {
+	width: 500px;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #000 !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none;
+}
+

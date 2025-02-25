@@ -1,0 +1,23 @@
+header {
+	padding: 10px 20px 10px 20px;
+	background-color: #000;
+
+	img.logo {
+		height: auto;
+		width:100%;
+		max-width:600px;
+		display: block;
+		float: left;
+		margin-left: 30px;
+		margin-right: 40px;
+	}
+
+	h1 {
+		float: left;
+	}
+
+	a {
+		color: $colorBase;
+		float: left;
+	}
+}

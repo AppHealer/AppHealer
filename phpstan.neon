@@ -1,0 +1,22 @@
+includes:
+	- vendor/larastan/larastan/extension.neon
+	- vendor/nesbot/carbon/extension.neon
+parameters:
+	level: 7
+
+	ignoreErrors:
+		-
+			message: '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$[a-zA-Z0-9]+#'
+			path: *
+		-
+			identifier: missingType.generics
+		-
+			message: '#Parameter \#[0-9] \$color of function image[a-zA-Z]+ expects int, int\<0, max\>\|false given.#'
+		-
+			identifier: larastan.noEnvCallsOutsideOfConfig
+			path: app/Http/Controllers/InstallationController.php
+			count: 1
+		-
+			identifier: arguments.count
+			path: app/Console/Commands/WaitForDatabaseIsUp.php
+			count: 1

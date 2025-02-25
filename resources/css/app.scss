@@ -1,0 +1,44 @@
+@import 'bootstrap/scss/bootstrap';
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+$colorBase: #1FFBFB;
+$colorBaseDark: #1FCFCF;
+$colorDarkGray: #4a5568;
+$colorLightGray: #e2e2e2;
+
+@import 'header.scss';
+@import 'helpers.scss';
+@import 'tables.scss';
+@import 'dashboard.scss';
+@import 'title.scss';
+@import 'svggraph.scss';
+@import 'monitors/list.scss';
+@import 'monitors/detail.scss';
+
+@import 'pagination.scss';
+@import 'forms/_forms.scss';
+
+@import 'navs/main';
+@import 'navs/currentUser';
+
+body {
+	background-color: $colorLightGray;
+	margin:0px;
+	padding:0px;
+	padding-right:15px;
+}
+
+.content {
+	margin-left: 10px;
+	padding: 00px 30px 30px 30px;
+	background-color: #fff;
+	margin-bottom: 40px;
+}
+
+a {
+	font-weight:bold;
+	color:$colorBase;
+	text-decoration: none;
+}
+
+@import 'installation.scss';

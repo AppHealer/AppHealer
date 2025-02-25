@@ -1,0 +1,28 @@
+.pagination {
+	border: 1px solid $colorLightGray;
+	width:fit-content;
+	background-color:$colorLightGray;
+	border-radius:8px;
+	padding:3px;
+	a, span.fa {
+
+		margin: 5px;
+		font-size:24px;
+		color:$colorDarkGray;
+		height:23px;
+	}
+
+  .cursorPosition {
+	background-color: #fff;
+	padding-top:3px;
+	width:120px;
+	text-align:center;
+	margin-left: 6px;
+	margin-right: 6px;
+	.numbers {
+		font-weight: bold;
+	 }
+
+  }
+
+}

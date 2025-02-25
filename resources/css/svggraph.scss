@@ -1,0 +1,22 @@
+svg {
+	rect.infobox {
+		fill:#EFEFEF;
+		stroke: $colorBase;
+	}
+
+	text {
+		font-family: Verdana, Arial, sans-serif;
+	}
+
+	text.infobox {
+		font-size: 14px;
+	}
+
+	text.axeStep {
+	  font-size: 16px;
+	}
+
+	text.dataPointAxeLabel {
+		font-size: 14px;
+	}
+}

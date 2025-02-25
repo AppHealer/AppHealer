@@ -1,0 +1,77 @@
+.monitors {
+	.check {
+		background-color: darkgreen;
+		width: 10px;
+		display: inline;
+	  	float:left;
+		height: 18px;
+		margin: 0px;
+		margin-top:5px;
+		border:1px solid #fff;
+	}
+
+	.check:hover {
+		border:1px solid #000;
+	}
+
+	.checkFailed {
+		background-color: red;
+	}
+
+	.name {
+		font-weight: bold;
+		font-size: 114%;
+		a {
+			text-decoration: underline;
+			color: #000;
+		}
+	}
+
+	.timeout {
+		padding-right: 0px;
+	}
+
+	.up {
+		font-size: 90%;
+	}
+
+	.status {
+		width: 27px;
+		height:27px;
+		border-radius: 16px;
+		display:inline-block;
+		margin-top: 10px;
+	}
+
+	.ok .status{
+		background-color: darkgreen;
+	}
+
+	.failed .status {
+		background-color: red;
+	}
+
+	.nochecked .status {
+		background-color:#adb5bd;
+	}
+
+	.timeoutGraph {
+		width: 100px;
+		height: 40px;
+	}
+
+	.failed td.name {
+		color:darkred;
+	}
+
+  .colStatus {width: 40px;}
+  .colName {width:260px;}
+  .colTimeout {width: 100px;}
+  .colUptime {width: 70px;}
+  .colChecks {width:280px;}
+  .colLastCheck {width: 120px}
+}
+
+.monitorFilter {
+	width: 980px;
+}

@@ -1,0 +1,45 @@
+FROM php:8.4-fpm
+
+RUN set -xe; \
+    apt-get update  && \
+    apt-get upgrade -y && \
+    pecl channel-update pecl.php.net
+
+RUN apt-get install -y --no-install-recommends \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        libzip-dev \
+        libxml2-dev\
+        default-mysql-client \
+        cron \
+        git \
+        zip \
+        libicu-dev libcurl4-openssl-dev pkg-config libssl-dev \
+        supervisor \
+    && docker-php-ext-configure gd --with-jpeg=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) pdo pdo_mysql exif soap gd \
+    && docker-php-ext-configure pdo
+
+RUN  docker-php-ext-configure intl \
+&& docker-php-ext-install intl
+
+RUN pecl install zip
+RUN docker-php-ext-enable zip
+
+WORKDIR /var/www
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+RUN composer self-update
+
+
+COPY docker/conf/supervisor/supervisord.conf /etc/supervisord.conf
+COPY docker/conf/cron/crontab /etc/crontab
+
+ADD docker/scripts/phpfpm-start.sh /
+
+RUN  mkdir -p /var/laravel-storage/views
+RUN  mkdir -p /var/laravel-storage/logs
+RUN chown www-data:www-data /var/laravel-storage -R
+
+RUN chmod +x /phpfpm-start.sh
+CMD ["/bin/bash", "-c","/phpfpm-start.sh"]

@@ -1,0 +1,47 @@
+.form-login {
+	margin: 130px auto;
+	width:400px;
+	background-color: #fff;
+	padding: 20px;
+	border: 1px solid  #4a5568;
+
+	span.fa {
+	  	font-size:16px;
+	  	padding:11px;
+	  	color: $colorBase;
+	  	background-color: #4a5568;
+	  	border-radius: 5px 0px 0px 5px;
+	}
+
+	.errors {
+		color: darkred;
+	}
+
+
+	.buttons {
+		text-align:center;
+		.btn {
+			width:150px;
+			color: $colorBase;
+			border-color: $colorBase;
+			font-weight:bold;
+			background-color: #4a5568;
+		}
+	}
+	.lostpassword {
+		text-align:right;
+		margin-top: 30px;
+
+		a {
+			color: #4a5568
+		}
+	}
+
+	input:focus, select:focus {
+		outline: none;
+		border-color: inherit;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+
+}

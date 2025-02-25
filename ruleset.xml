@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<ruleset name="AppHealerCodingStandards" >
+    <file>./app</file>
+
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="100"/>
+            <property name="absoluteLineLimit" value="120"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Files.OneTraitPerFile"/>
+    <rule ref="Generic.Files.OneClassPerFile"/>
+    <rule ref="Generic.Files.OneInterfacePerFile"/>¨
+
+    <rule ref="PSR2.Files.EndFileNewline"/>
+    <rule ref="Generic.PHP.DisallowShortOpenTag"/>
+    <rule ref="Zend.Files.ClosingTag"/>
+
+    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
+    <rule ref="Generic.PHP.RequireStrictTypes"/>
+
+    <rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+
+    <rule ref="Generic.NamingConventions.CamelCapsFunctionName"/>
+    <rule ref="Generic.NamingConventions.ConstructorName"/>
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+
+    <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace" />
+
+    <rule ref="Squiz.Scope.MemberVarScope"/>
+    <rule ref="Squiz.Scope.MethodScope"/>
+
+    <rule ref="Squiz.ControlStructures.LowercaseDeclaration"/>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1"/>
+            <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="PSR2.Namespaces.NamespaceDeclaration"/>
+    <rule ref="PSR2.Namespaces.UseDeclaration"/>
+    <rule ref="Generic.CodeAnalysis.AssignmentInCondition"/>
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+    <rule ref="Generic.Functions.FunctionCallArgumentSpacing"/>
+    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+    <rule ref="PSR12.Operators.OperatorSpacing"/>
+    <rule ref="PSR12.Functions.ReturnTypeDeclaration"/>
+    <rule ref="PSR2.Classes.ClassDeclaration"/>
+    <rule ref="Squiz.Classes.ValidClassName"/>
+    <rule ref="Squiz.NamingConventions.ValidVariableName"/>
+    <rule ref="Squiz.ControlStructures.ControlSignature"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Generic.PHP.LowerCaseConstant"/>
+    <rule ref="PEAR.Functions.ValidDefaultValue"/>
+    <rule ref="SlevomatCodingStandard.Functions.RequireMultiLineCall">
+        <properties>
+            <property name="minLineLength" value="90"/>
+        </properties>
+    </rule>
+    <rule ref="SlevomatCodingStandard.Functions.FunctionLength">
+        <properties>
+            <property name="maxLinesLength" value="25"/>
+        </properties>
+    </rule>
+
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.AlphabeticallySortedUses"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UselessAlias"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseDoesNotStartWithBackslash"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UseFromSameNamespace"/>
+
+    <rule ref="SlevomatCodingStandard.Arrays.AlphabeticallySortedByKeys"/>
+    <rule ref="SlevomatCodingStandard.Arrays.DisallowPartiallyKeyed"/>
+
+    <rule ref="SlevomatCodingStandard.Commenting.UselessFunctionDocComment"/>
+    <rule ref="SlevomatCodingStandard.Commenting.UselessInheritDocComment"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint"/>
+
+    <rule ref="Generic.WhiteSpace.ScopeIndent">
+        <properties>
+            <property name="indent" value="1"/>
+            <property name="tabIndent" value="true"/>
+            <property name="exact" value="true"/>
+        </properties>
+    </rule>
+
+
+</ruleset>

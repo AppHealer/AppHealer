@@ -1,0 +1,54 @@
+.dashboard {
+	.card {
+		width: 420px;
+		.card-title {
+			background-color:$colorLightGray;
+			padding: 4px 0px 4px 10px;
+			font-weight:bold;
+			.fa {
+				margin-right: 10px;
+			}
+		}
+
+		.card-body {
+			padding: 2px;
+			.timerange {
+				padding-left: 16px;
+				span {
+					cursor:pointer;
+					color:#000;
+					font-weight:normal;
+					text-decoration:underline;
+
+				}
+
+				span.selected {
+					font-weight: bold;
+					text-decoration:none;
+				}
+			}
+
+			.graph {
+				.full {
+					width:100%;
+					background-color: darkred;
+					height: 16px;
+					border-radius: 8px;
+
+					.ok {
+						background-color: darkgreen;
+						height: 16px;
+						border-radius: 8px;
+
+					}
+				}
+			}
+		}
+
+		a {
+			color:#000;
+			text-decoration:underline;
+			font-weight: normal;
+		}
+	}
+}
