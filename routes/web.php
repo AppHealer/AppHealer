@@ -38,6 +38,7 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/dashboard/monitors/failed/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'failed'])->name('dashboard.monitors.failed');
 	Route::get('/dashboard/monitors/slow/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'slow'])->name('dashboard.monitors.slow');
 	Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+	Route::fallback([\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'pageNotFound']);
 });
 
 
