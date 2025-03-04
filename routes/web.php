@@ -26,13 +26,14 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/monitors/list', [\AppHealer\Http\Controllers\Monitors\ListController::class, 'list'])->name('monitors.list');
 	Route::get('/monitors/{monitor}/timeout', [\AppHealer\Http\Controllers\Monitors\TimeoutGraphController::class, 'render'])->name('monitors.list.timeout.graph');
 
-	Route::get('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'create'])->name('monitors.create');
-	Route::get('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'edit'])->name('monitors.edit');
-	Route::post('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save.new');
-	Route::post('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save');
-	Route::get('/monitors/{monitor}/schedule', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'schedule'])->name('monitors.schedule');
-	Route::get('/monitors/{monitor}', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'detail'])->name('monitors.detail');
+	Route::get('/monitors/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'monitorNotFound'])->name('monitors.missing');
 
+	Route::get('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'create'])->name('monitors.create');
+	Route::get('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'edit'])->name('monitors.edit')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::post('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save.new');
+	Route::post('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::get('/monitors/{monitor}/schedule', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'schedule'])->name('monitors.schedule')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::get('/monitors/{monitor}', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'detail'])->name('monitors.detail')->missing(function(){return redirect(route('monitors.missing'));});
 
 	Route::get('/dashboard/lastLogins', [\AppHealer\Http\Controllers\Dashboard\LastLoginsController::class, 'index'])->name('dashboard.lastLogins');
 	Route::get('/dashboard/monitors/failed/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'failed'])->name('dashboard.monitors.failed');

@@ -13,4 +13,14 @@ class NotFoundController
 			->view('errors.404')
 			->setStatusCode(Response::HTTP_NOT_FOUND);
 	}
+
+	public function monitorNotFound(): Response
+	{
+		return response()
+			->redirectToRoute('monitors')
+			->with(
+				'error',
+				__('Unknown monitor ID in url.')
+			);
+	}
 }
