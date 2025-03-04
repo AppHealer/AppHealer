@@ -23,4 +23,14 @@ class NotFoundController
 				__('Unknown monitor ID in url.')
 			);
 	}
+
+	public function userNotFound(): Response
+	{
+		return response()
+			->redirectToRoute('users')
+			->with(
+				'error',
+				__('Unknown user ID in url.')
+			);
+	}
 }

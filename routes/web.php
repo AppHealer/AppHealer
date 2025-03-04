@@ -10,10 +10,11 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/users/list', [\AppHealer\Http\Controllers\UsersController::class, 'list'])->name('users.list');
 	Route::get('/users/create', [\AppHealer\Http\Controllers\UsersController::class, 'create'])->name('users.create');
 	Route::post('/users/save', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save.new');
-	Route::get('/users/{user}/block', [\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block');
-	Route::get('/users/{user}/delete', [\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
-	Route::post('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save');
-	Route::get('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
+	Route::get('/users/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'userNotFound'])->name('users.missing');
+	Route::get('/users/{user}/block', [\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block')->missing(function(){return redirect(route('users.missing'));});
+	Route::get('/users/{user}/delete', [\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete')->missing(function(){return redirect(route('users.missing'));});
+	Route::post('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save')->missing(function(){return redirect(route('users.missing'));});
+	Route::get('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'edit'])->name('users.edit')->missing(function(){return redirect(route('users.missing'));});
 
 	Route::get('/profile/password', [\AppHealer\Http\Controllers\ProfileController::class, 'changePassword'])->name('profile.changePassword');
 	Route::post('/profile/password', [\AppHealer\Http\Controllers\ProfileController::class, 'changePasswordSubmit'])->name('profile.changePassword.submit');
