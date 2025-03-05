@@ -32,9 +32,11 @@
 				@endif
 			</div>
 		</div>
-		<div class="d-block d-md-none">
-			@include("_components.menu.currentUser-mobile")
-		</div>
+		@if (auth()->user())
+			<div class="d-block d-md-none">
+				@include("_components.menu.currentUser-mobile")
+			</div>
+		@endif
 
 	</header>
 	@if (auth()->user())
