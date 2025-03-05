@@ -2,18 +2,18 @@
 @section('content')
 <div class="dashboard">
 	<div class="row mb-2">
-		<div class="col-auto">
+		<div class="col-md-3 col-sm-12">
 			@include('dashboard.cards.monitorsSlowest')
 		</div>
 
-		<div class="col-auto">
+		<div class="col-md-3 col-sm-12">
 			@include('dashboard.cards.monitorsFailed')
 		</div>
 		<div class="col"></div>
 	</div>
 
 	<div class="row">
-		<div class="col">
+		<div class="col-md-3 col-sm-12">
 
 			<div class="card">
 				<div class="card-title"><span class="fa fa-user-shield"></span>{{ __('Last Logins') }}</div>
