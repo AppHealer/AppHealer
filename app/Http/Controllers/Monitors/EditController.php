@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AppHealer\Http\Controllers\Monitors;
 
+use AppHealer\Http\Requests\MonitorRequest;
 use AppHealer\Models\Monitor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -27,10 +28,11 @@ class EditController
 	}
 
 	public function save(
-		Monitor $monitor
+		Monitor $monitor,
+		MonitorRequest $request
 	): RedirectResponse
 	{
-		$monitor->fill(request()->all());
+		$monitor->fill($request->all());
 		if ($monitor->id === null) {
 			$message =  'Monitor <i>:name</i> has been created.';
 			$redirectTo = route('monitors');

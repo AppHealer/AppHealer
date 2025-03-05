@@ -32,7 +32,7 @@
 					<label class="col-form-label" for="fieldEndpoint">{{ __('Endpoint') }}</label>
 				</div>
 				<div class="col-8">
-					<input type="text" name="endpoint" id="fieldEndpoint" class="form-control {{ $errors->has('url') ? 'is-invalid': '' }}" value="{{old('endpoibt') ?? (isset($monitor) ? $monitor->endpoint : '')}}">
+					<input type="text" name="endpoint" id="fieldEndpoint" class="form-control {{ $errors->has('endpoint') ? 'is-invalid': '' }}" value="{{old('endpoint') ?? (isset($monitor) ? $monitor->endpoint : '')}}">
 					@if ($errors->hasAny('endpoint'))
 						<div class="invalid-feedback">
 							{{  $errors->first('endpoint') }}
