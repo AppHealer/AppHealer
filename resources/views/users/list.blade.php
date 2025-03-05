@@ -9,9 +9,9 @@
 			<thead>
 				<tr>
 					<th colspan="2">{{  __('Name') }}</th>
-					<th>{{  __('Email') }}</th>
-					<th>{{  __('Phone') }}</th>
-					<th>{{  __('Last Login') }}</th>
+					<th class="d-none d-md-table-cell">{{  __('Email') }}</th>
+					<th class="d-none d-md-table-cell">{{  __('Phone') }}</th>
+					<th class="d-none d-md-table-cell">{{  __('Last Login') }}</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -22,9 +22,9 @@
 							<span style="visibility: {{$user->blocked == false ? 'hidden' : 'visible'}}" class="fa fa-cancel"></span>
 						</td>
 						<td>{{ $user->name }}</td>
-						<td>{{ $user->email }}</td>
-						<td>{{ $user->phone }}</td>
-						<td>{{ $user->lastLogin ?? '' }}</td>
+						<td class="d-none d-md-table-cell">{{ $user->email }}</td>
+						<td class="d-none d-md-table-cell">{{ $user->phone }}</td>
+						<td class="d-none d-md-table-cell">{{ $user->lastLogin ?? '' }}</td>
 						<td class="actions text-end">
 							<a href="{{ route('users.block', ['user' => $user->id]) }}?page={{request()->get('page', 0)}}"
 								class="fa {{ $user->blocked ? 'fa-lock-open ' : 'fa-lock' }}"
