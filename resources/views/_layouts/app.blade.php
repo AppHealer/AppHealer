@@ -15,10 +15,13 @@
 <body>
 	<header class="row">
 		<div class="col">
-			<img src="/images/logo.png" alt="logo" class="logo"/>
-			<a href="/">
-
-			</a>
+			@if (auth()->user())
+				<a href="{{route('dashboard')}}">
+					<img src="/images/logo.png" alt="logo" class="logo"/>
+				</a>
+			@else
+				<img src="/images/logo.png" alt="logo" class="logo"/>
+			@endif
 		</div>
 		<div class="col-auto">
 			@if (auth()->user())
