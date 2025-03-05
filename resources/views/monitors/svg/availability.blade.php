@@ -1,7 +1,7 @@
 @php
 	$axeStep = 10;
 @endphp
-<svg  width="580" height="370" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 580 370" xmlns="http://www.w3.org/2000/svg">
 	<line x1="60" x2="60" y1="00" y2="320" stroke="#000"  stroke-width="1"/>
 	@foreach($data as $i => $value)
 		@if ($value->getTotal() !== 0)

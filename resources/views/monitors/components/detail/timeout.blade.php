@@ -10,8 +10,7 @@
 		</div>
 	</div>
 	@if ($summary->getTotal() !== 0)
-
-		<div class="row p-2">
+		<div class="row p-2 d-none d-md-flex">
 			<div class="col-auto">
 				<h4>Min</h4>
 				<span class="value">

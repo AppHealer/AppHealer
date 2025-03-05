@@ -19,11 +19,11 @@
 			@include('monitors.components.detail.timeout')
 		</div>
 		<div class="row">
-			<div class="col-auto p-3">
+			<div class="col-sm-3 col-md-auto p-3">
 				<h3 class="text-center">{{__('Availability')}}</h3>
 				@include("monitors.svg.availability")
 			</div>
-			<div class="col-auto p-3">
+			<div class="col-sm-6 col-md-auto p-3">
 				<h3 class="text-center">{{__('Average timeout (in ms)')}}</h3>
 				@include("monitors.svg.timeout")
 			</div>
