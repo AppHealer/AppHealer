@@ -1,6 +1,6 @@
 @media (max-width: 600px) {
-
-	header {
+	.content {
+		padding: 00px 10px 10px 10px;
 	}
 
 	img.logo {
@@ -43,4 +43,21 @@
 		font-size:22px;
 		padding-top:10px;
 	}
+
+	.colTimeout {
+		width:130px !important;
+		position:relative;
+		top:1px;
+	}
+
+	.colName {
+		.name {
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			width: 130px;
+			overflow: hidden;
+			display: inline-block;
+		}
+	}
+
 }

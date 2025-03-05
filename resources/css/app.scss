@@ -21,7 +21,7 @@ $colorLightGray: #e2e2e2;
 @import 'navs/main';
 @import 'navs/currentUser';
 
-@import 'mobile.scss';
+
 
 body {
 	background-color: $colorLightGray;
@@ -44,4 +44,5 @@ a {
 	text-decoration: none;
 }
 
+@import 'mobile.scss';
 @import 'installation.scss';

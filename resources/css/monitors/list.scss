@@ -58,6 +58,7 @@
 	.timeoutGraph {
 		width: 100px;
 		height: 40px;
+
 	}
 
 	.failed td.name {
@@ -66,12 +67,8 @@
 
   .colStatus {width: 40px;}
   .colName {width:260px;}
-  .colTimeout {width: 100px;}
+  .colTimeout {width: 220px; padding-top:28px;}
   .colUptime {width: 70px;}
   .colChecks {width:280px;}
   .colLastCheck {width: 120px}
-}
-
-.monitorFilter {
-	width: 980px;
 }
