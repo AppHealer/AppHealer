@@ -21,14 +21,17 @@ $colorLightGray: #e2e2e2;
 @import 'navs/main';
 @import 'navs/currentUser';
 
+@import 'mobile.scss';
+
 body {
 	background-color: $colorLightGray;
 	margin:0px;
 	padding:0px;
-	padding-right:15px;
+
 }
 
 .content {
+	margin-right:10px;
 	margin-left: 10px;
 	padding: 00px 30px 30px 30px;
 	background-color: #fff;

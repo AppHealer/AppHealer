@@ -1,4 +1,4 @@
-<nav class="currentUser mt-3">
+<nav class="currentUser d-none d-md-block mt-3">
 	<div class="name dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 		<img class="photo" src="/images/user.jpg" />
 		<span>{{auth()->user()->name}}</span>

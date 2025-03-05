@@ -13,21 +13,29 @@
 </head>
 
 <body>
-	<header class="row">
-		<div class="col">
-			@if (auth()->user())
-				<a href="{{route('dashboard')}}">
+	<header>
+		<div class="row">
+			<div class="col-8 col-lg-6">
+				@if (auth()->user())
+					<a  href="{{route('dashboard')}}">
+						<img src="/images/logo.png" alt="logo" class="logo"/>
+					</a>
+				@else
 					<img src="/images/logo.png" alt="logo" class="logo"/>
-				</a>
-			@else
-				<img src="/images/logo.png" alt="logo" class="logo"/>
-			@endif
+				@endif
+			</div>
+			<div class="col"></div>
+			<div class="col-auto">
+				@if (auth()->user())
+					<span id="menu-toggler" class="menu-toggler fa fa-bars d-md-none"></span>
+					@include("_components.menu.currentUser")
+				@endif
+			</div>
 		</div>
-		<div class="col-auto">
-			@if (auth()->user())
-				@include("_components.menu.currentUser")
-			@endif
+		<div class="d-block d-md-none">
+			@include("_components.menu.currentUser-mobile")
 		</div>
+
 	</header>
 	@if (auth()->user())
 		@include("_components.menu.main")

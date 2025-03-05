@@ -1,0 +1,46 @@
+@media (max-width: 600px) {
+
+	header {
+	}
+
+	img.logo {
+		margin-left:1px !important;
+		margin-right:0 !important;
+	 	height:50px;
+	}
+
+	nav.currentUser {
+		background-color:$colorDarkGray;
+
+		ul {
+			padding-left:20px !important;
+			li {
+				display: block;
+				a {
+					color: $colorBaseDark;
+				}
+			}
+
+			li.caption {
+				margin-bottom: 13px;
+				span {
+					font-weight: bold;
+					color: $colorLightGray;
+					padding-left: 10px;
+					font-size: 19px;
+				}
+				.photo {
+					width: 30px;
+					border-radius: 10px;
+					margin-left: 4px;
+					vertical-align: top;
+				}
+			}
+		}
+	}
+
+	.menu-toggler {
+		font-size:22px;
+		padding-top:10px;
+	}
+}
