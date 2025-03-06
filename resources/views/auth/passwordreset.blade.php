@@ -25,18 +25,20 @@
 		</div>
 		<div class="mb-2 mt-2">
 			<div class="input-group">
-				<div class="input-group">
+				<div class="input-group show-password">
 					<span class="input-group-addon"><span class="fa fa-key"></span></span>
-					<input type="password" class="form-control" autocomplete="false" placeholder="{{__('Password')}}" name="password"/>
+					<input type="password" class="form-control" autocomplete="false" placeholder="{{__('New password')}}" name="password"/>
+					<span class="wrapper input-group-addon rounded-end-2 "><span class="fa fa-eye"></span></span>
 				</div>
 			</div>
 		</div>
 
 		<div class="mb-4 mt-2">
 			<div class="input-group">
-				<div class="input-group">
+				<div class="input-group show-password">
 					<span class="input-group-addon"><span class="fa fa-check"></span></span>
 					<input type="password" class="form-control" autocomplete="false" placeholder="{{__('Retry password')}}" name="password_confirmation"/>
+					<span class="wrapper input-group-addon rounded-end-2 "><span class="fa fa-eye"></span></span>
 				</div>
 			</div>
 		</div>

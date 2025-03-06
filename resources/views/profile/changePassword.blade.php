@@ -14,12 +14,15 @@
 					<label class="col-form-label" for="fieldCurrentPassword">{{ __('Current password') }}</label>
 				</div>
 				<div class="col-md-7 col-sm-12">
-					<input type="password" name="currentPassword" id="fieldCurrentPassword" class="form-control {{ $errors->has('currentPassword') ? 'is-invalid': '' }}" >
-					@if ($errors->hasAny('currentPassword'))
-						<div class="invalid-feedback">
-							{{  $errors->first('currentPassword') }}
-						</div>
-					@endif
+					<div class="input-group show-password">
+						<input type="password" name="currentPassword" id="fieldCurrentPassword" class="form-control {{ $errors->has('currentPassword') ? 'is-invalid': '' }}" >
+						<span class="wrapper input-group-addon rounded-end-2 {{$errors->hasAny('currentPassword') ? 'error' : ''}}"><span class="fa fa-eye"></span></span>
+						@if ($errors->hasAny('currentPassword'))
+							<div class="invalid-feedback">
+								{{  $errors->first('currentPassword') }}
+							</div>
+					   @endif
+					</div>
 				</div>
 			</div>
 
@@ -28,12 +31,16 @@
 					<label class="col-form-label" for="fieldNewPassword">{{ __('New password') }}</label>
 				</div>
 				<div class="col-md-7 col-sm-12">
-					<input type="password" name="newPassword" id="fieldNewPassword" class="form-control {{ $errors->has('newPassword') ? 'is-invalid': '' }}" >
-					@if ($errors->hasAny('newPassword'))
-						<div class="invalid-feedback">
-							{{  $errors->first('newPassword') }}
-						</div>
-					@endif
+					<div class="input-group show-password">
+						<input type="password" name="newPassword" id="fieldNewPassword" class="form-control {{ $errors->has('newPassword') ? 'is-invalid': '' }}" >
+						<span class="wrapper input-group-addon rounded-end-2 {{$errors->hasAny('newPassword') ? 'error' : ''}}"><span class="fa fa-eye"></span></span>
+
+						@if ($errors->hasAny('newPassword'))
+							<div class="invalid-feedback">
+								{{  $errors->first('newPassword') }}
+							</div>
+						@endif
+					</div>
 				</div>
 			</div>
 
@@ -42,7 +49,10 @@
 					<label class="col-form-label" for="fieldPasswordConfirmation">{{ __('Password confirmation') }}</label>
 				</div>
 				<div class="col-md-7 col-sm-12">
-					<input type="password" name="newPassword_confirmation" id="fieldPasswordConfirmation" class="form-control {{ $errors->has('newPassword_confirmation') ? 'is-invalid': '' }}" >
+					<div class="input-group show-password">
+						<input type="password" name="newPassword_confirmation" id="fieldPasswordConfirmation" class="form-control {{ $errors->has('newPassword_confirmation') ? 'is-invalid': '' }}" >
+						<span class="wrapper input-group-addon rounded-end-2"><span class="fa fa-eye"></span></span>
+					</div>
 					@if ($errors->hasAny('newPassword_confirmation'))
 						<div class="invalid-feedback">
 							{{  $errors->first('newPassword_confirmation') }}

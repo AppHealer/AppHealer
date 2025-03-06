@@ -28,9 +28,10 @@
 		</div>
 		<div class="mb-4">
 			<div class="input-group">
-				<div class="input-group">
+				<div class="input-group show-password">
 					<span class="input-group-addon"><span class="fa fa-key"></span></span>
 					<input name="password" type="password" placeholder="password" class="form-control">
+					<span class="wrapper input-group-addon rounded-end-2 "><span class="fa fa-eye"></span></span>
 				</div>
 			</div>
 		</div>

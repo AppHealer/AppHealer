@@ -2,20 +2,19 @@
 @import 'monitorFilter.scss';
 
 .btn, .btn:hover {
-  width:150px;
-  color: $colorBase;
-  border-color: $colorBase;
-  font-weight:bold;
-  background-color: #4a5568;
+	width:150px;
+	color: $colorBase;
+	border-color: $colorBase;
+	font-weight:bold;
+	background-color: #4a5568;
 }
 
 .btnBack, .btnBack:hover {
-  width:150px;
-  color: #000;
-  border-color: $colorDarkGray;
-  font-weight:bold;
-  background-color:  $colorLightGray;
-
+	width:150px;
+	color: #000;
+	border-color: $colorDarkGray;
+	font-weight:bold;
+	background-color:  $colorLightGray;
 }
 
 fieldset {
@@ -29,3 +28,29 @@ input:focus, select:focus {
   box-shadow: none;
 }
 
+.show-password {
+
+	input {
+		border-right-width: 0;
+	}
+
+	.wrapper {
+		border: 1px solid #dee2e6;;
+		padding:7px 7px 0 0;
+		color: $colorDarkGray;
+
+		.fa {
+			margin-top:auto;
+			margin-bottom:auto;
+			font-size:19px;
+		}
+	}
+
+	.wrapper.error {
+		border-color:red;
+	}
+
+	.wrapper.focused {
+		border-color:#000000;
+	}
+}
