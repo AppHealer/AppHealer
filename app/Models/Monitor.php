@@ -85,6 +85,11 @@ class Monitor extends Model
 		return $this->lastcheck->timeout ?? null;
 	}
 
+	public function incidents(): HasMany
+	{
+		return $this->hasMany(Incident::class);
+	}
+
 	/**
 	 * @return string[]
 	 */

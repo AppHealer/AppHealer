@@ -18,5 +18,11 @@
 				{{ __('Users') }}
 			</a>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link {{ isset($page) && $page == 'incidents' ? 'active' : '' }}" href="{{ route('incidents') }}">
+				<span class="fa-solid fa-exclamation-triangle"></span>
+				{{ __('Incidents') }}
+			</a>
+		</li>
 	</ul>
 </nav>

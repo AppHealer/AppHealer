@@ -39,6 +39,15 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/dashboard/lastLogins', [\AppHealer\Http\Controllers\Dashboard\LastLoginsController::class, 'index'])->name('dashboard.lastLogins');
 	Route::get('/dashboard/monitors/failed/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'failed'])->name('dashboard.monitors.failed');
 	Route::get('/dashboard/monitors/slow/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'slow'])->name('dashboard.monitors.slow');
+
+
+	Route::get('/incidents', [\AppHealer\Http\Controllers\IncidentController::class, 'list'])->name('incidents');
+	Route::get('/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'create'])->name('incidents.create');
+	Route::post('/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'save'])->name('incidents.create.submit');
+	Route::get('/incidents/{incident}', [\AppHealer\Http\Controllers\IncidentController::class, 'detail'])->name('incidents.detail');
+	Route::post('/incidents/{incident}/comment', [\AppHealer\Http\Controllers\IncidentController::class, 'comment'])->name('incidents.comments.submit');
+	Route::get('/incidents/{incident}/assign/{user}', [\AppHealer\Http\Controllers\IncidentController::class, 'assign'])->name('incidents.assign');
+
 	Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 	Route::fallback([\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'pageNotFound']);
 });
