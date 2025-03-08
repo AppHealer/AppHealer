@@ -17,11 +17,15 @@ class Monitor extends Model
 	public $timestamps = true;
 	protected $fillable = [
 		'endpoint',
-		'interval',
 		'name',
-		'timeout',
 		'httpBasicAuthUser',
 		'httpBasicAuthPassword',
+		'incidentCreateAvg',
+		'incidentCreateCount',
+		'incidentCloseAvg',
+		'incidentCloseCount',
+		'interval',
+		'timeout',
 	];
 
 	protected $casts = [
