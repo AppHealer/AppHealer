@@ -58,7 +58,7 @@
 			</div>
 			<div class="row mb-2">
 				<div class="col-12">
-					<textarea class="w-auto" cols="48" rows="10" name="comment">{{_(old('comment'))}}</textarea>
+					<textarea placeholder="{{__('Type description of incident')}}" class="w-100 border-black border p-2" rows="8" name="comment">{{_(old('comment'))}}</textarea>
 				</div>
 			</div>
 		</fieldset>
