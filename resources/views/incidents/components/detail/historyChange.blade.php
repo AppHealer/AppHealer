@@ -34,7 +34,9 @@
 			@endif
 			<div class="col mt-1">
 				{!!$message!!}
-				({{$prevMessage}})
+				@if (isset($prevMessage))
+					({{$prevMessage}})
+				@endif
 			</div>
 		</div>
 	</div>
