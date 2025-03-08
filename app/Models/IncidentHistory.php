@@ -3,13 +3,20 @@ declare(strict_types=1);
 
 namespace AppHealer\Models;
 
+use AppHealer\Enums\IncidentState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IncidentHistory extends Model
 {
 	protected $table = 'incident_history';
-	protected $casts = [];
+
+	protected $casts = [
+		'state' => IncidentState::class,
+		'prev_state' => IncidentState::class,
+
+	];
+
 	protected $fillable = [
 		'incident_id',
 		'created_by',

@@ -1,0 +1,22 @@
+.incident-state {
+	width: 30px;
+	height:30px;
+	border-radius: 16px;
+	display:inline-block;
+	border-width:1px;
+	text-align:center;
+	span {
+		display:inline-block;
+		padding-top:7px;
+	}
+}
+
+.incident-state-new {background-color:red;color:#fff;}
+.incident-state-confirmed {background-color:orange;color:#fff;}
+.incident-state-investigating {background-color:blue;color:#fff;}
+.incident-state-fixing {background-color:blue;color:#fff;}
+.incident-state-monitoring {background-color:lightblue;}
+.incident-state-closed {background-color:lightgreen;}
+
+
+

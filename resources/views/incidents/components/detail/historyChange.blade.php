@@ -21,13 +21,22 @@
 			} else {
 				$message = sprintf(
 					__('<span class="fst-italic">status set to </span> <span class="fw-bold">%s</span>'),
-					$item->state
+					$item->state->value
 				);
-				$prevMessage = sprintf(__('was %s'),  $item->prev_state);
+				$prevMessage = sprintf(__('was %s'),  $item->prev_state->value);
 			}
 		@endphp
-		{!!$message!!}
-		({{$prevMessage}})
+		<div class="row pb-0 mb-0">
+			@if($item->state !== null)
+				<div class="col-auto">
+					@include('incidents.components.state', ['state' => $item->state])
+				</div>
+			@endif
+			<div class="col mt-1">
+				{!!$message!!}
+				({{$prevMessage}})
+			</div>
+		</div>
 	</div>
 
 </fieldset>

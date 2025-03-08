@@ -1,5 +1,5 @@
 <fieldset class="border border-black mb-4 p-3">
-	<legend class="col mb-4 h3 fw-bold">{{$incident->caption}}</legend>
+	<legend class="mb-4 h3 fw-bold row">{{$incident->caption}}</legend>
 	<div class="row mb-2">
 		<div class="col-2">
 			{{__('State')}}

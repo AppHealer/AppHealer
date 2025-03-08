@@ -3,8 +3,10 @@
 	<a href="{{route('incidents.create')}}" class="btn">{{__('New incident')}}</a>
 	<table class="table">
 		<thead>
-			<th colspan="2">{{__('Incident caption')}}</th>
+			<th></th>
+			<th>{{__('Incident caption')}}</th>
 			<th>{{__('Monitor')}}</th>
+			<th></th>
 			<th>{{('Started')}}</th>
 			<th>{{('Assigned to')}}</th>
 			<th>{{('Closed')}}</th>
@@ -20,6 +22,7 @@
 						<a class="link" href="{{route('incidents.detail', ['incident' => $incident])}}">{{$incident->caption}}</a>
 					</td>
 					<td>{{$incident->monitor->name}}</td>
+					<td>@include('incidents.components.state', ['state' => $incident->state])</td>
 					<td>{{$incident->datetime_created}}</td>
 					<td>{{$incident->assignedTo?->name}}</td>
 					<td>{{$incident->datetime_closed}}</td>
