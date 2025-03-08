@@ -58,7 +58,9 @@ class IncidentController
 			$incident->comments()->save($comment);
 		}
 		return response()
-			->redirectToRoute('incidents')
+			->redirectToRoute(
+				$this->getRouteToDetail($incident)
+			)
 			->with(
 				'message',
 				__('Incident successfully created')
@@ -81,17 +83,15 @@ class IncidentController
 		AddCommentRequest $request
 	): RedirectResponse
 	{
+		if ($incident->isClosed()) {
+			return $this->redirectWithAlreadyClosedMessage($incident);
+		}
 		$comment = new IncidentComment();
 		$comment->fill($request->all());
 		$comment->createdBy()->associate(auth()->user());
 		$incident->comments()->save($comment);
 		return response()->redirectTo(
-			route(
-				'incidents.detail',
-				[
-					'incident' => $incident,
-				]
-			) . '#commentForm'
+			$this->getRouteToDetail($incident)
 		)->with('message', __('Comment successfully added'));
 	}
 
@@ -100,6 +100,9 @@ class IncidentController
 		User $user
 	): RedirectResponse
 	{
+		if ($incident->isClosed()) {
+			return $this->redirectWithAlreadyClosedMessage($incident);
+		}
 		$history = new IncidentHistory();
 		$history->incident()->associate($incident);
 		$history->createdBy()->associate(auth()->user());
@@ -109,12 +112,7 @@ class IncidentController
 		$incident->assignedTo()->associate($user);
 		$incident->save();
 		return response()->redirectTo(
-			route(
-				'incidents.detail',
-				[
-					'incident' => $incident,
-				]
-			) . '#commentForm'
+			$this->getRouteToDetail($incident)
 		)->with(
 			'message',
 			sprintf(__('Task was assigned to %s'), $user->name)
@@ -126,6 +124,9 @@ class IncidentController
 		IncidentState $state
 	): RedirectResponse
 	{
+		if ($incident->isClosed()) {
+			return $this->redirectWithAlreadyClosedMessage($incident);
+		}
 		$history = new IncidentHistory();
 		$history->incident()->associate($incident);
 		$history->createdBy()->associate(auth()->user());
@@ -133,17 +134,37 @@ class IncidentController
 		$history->prev_state = $incident->state; //phpcs:disable Squiz.NamingConventions.ValidVariableName
 		$history->save();
 		$incident->state = $state;
+		if ($state === IncidentState::CLOSED) {
+			$incident->closedBy()->associate(auth()->user());
+			$incident->datetime_closed = now();  //phpcs:disable Squiz.NamingConventions.ValidVariableName
+		}
 		$incident->save();
 		return response()->redirectTo(
-			route(
-				'incidents.detail',
-				[
-					'incident' => $incident,
-				]
-			) . '#commentForm'
+			$this->getRouteToDetail($incident)
 		)->with(
 			'message',
-			sprintf(__('Status was changed to %s'), $state->value)
+			$state == IncidentState::CLOSED
+				? __('Incident has been closed')
+				: sprintf(__('Status was changed to %s'), $state->value)
 		);
+	}
+
+	protected function getRouteToDetail(Incident $incident): string
+	{
+		return route(
+			'incidents.detail',
+			[
+				'incident' => $incident,
+			]
+		);
+	}
+
+	protected function redirectWithAlreadyClosedMessage(Incident $incident): RedirectResponse
+	{
+		return response()->redirectToRoute('incidents.detail', $incident)
+			->with(
+				'error',
+				__('Incident already closed')
+			);
 	}
 }

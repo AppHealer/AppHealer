@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace AppHealer\Models;
 
+use AppHealer\Enums\IncidentState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,6 +20,12 @@ class Incident extends Model
 		'created_by',
 		'datetime_closed',
 		'monitor_id',
+	];
+
+	protected $casts = [
+		'datetime_closed' => 'datetime',
+		'datetime_created' => 'datetime',
+		'state' => IncidentState::class,
 	];
 
 	public function monitor(): BelongsTo
@@ -49,6 +56,11 @@ class Incident extends Model
 	public function history(): HasMany
 	{
 		return $this->hasMany(IncidentHistory::class);
+	}
+
+	public function isClosed(): bool
+	{
+		return $this->state === IncidentState::CLOSED->value;
 	}
 
 	public function getHistory(): Collection
