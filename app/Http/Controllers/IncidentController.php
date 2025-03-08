@@ -58,7 +58,7 @@ class IncidentController
 			$incident->comments()->save($comment);
 		}
 		return response()
-			->redirectToRoute(
+			->redirectTo(
 				$this->getRouteToDetail($incident)
 			)
 			->with(
