@@ -60,7 +60,7 @@ class Incident extends Model
 
 	public function isClosed(): bool
 	{
-		return $this->state === IncidentState::CLOSED->value;
+		return $this->state === IncidentState::CLOSED;
 	}
 
 	public function getHistory(): Collection
