@@ -20,3 +20,7 @@ parameters:
 			identifier: arguments.count
 			path: app/Console/Commands/WaitForDatabaseIsUp.php
 			count: 1
+		-
+			identifier: assign.propertyType
+			path: app/Http/Controllers/IncidentController.php
+			count: 2

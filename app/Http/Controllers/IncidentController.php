@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace AppHealer\Http\Controllers;
 
+use AppHealer\Enums\IncidentState;
 use AppHealer\Http\Requests\Incidents\AddCommentRequest;
 use AppHealer\Http\Requests\Incidents\IncidentCreatedRequest;
 use AppHealer\Models\Incident;
@@ -117,6 +118,32 @@ class IncidentController
 		)->with(
 			'message',
 			sprintf(__('Task was assigned to %s'), $user->name)
+		);
+	}
+
+	public function changeState(
+		Incident $incident,
+		IncidentState $state
+	): RedirectResponse
+	{
+		$history = new IncidentHistory();
+		$history->incident()->associate($incident);
+		$history->createdBy()->associate(auth()->user());
+		$history->state = $state;
+		$history->prev_state = $incident->state; //phpcs:disable Squiz.NamingConventions.ValidVariableName
+		$history->save();
+		$incident->state = $state;
+		$incident->save();
+		return response()->redirectTo(
+			route(
+				'incidents.detail',
+				[
+					'incident' => $incident,
+				]
+			) . '#commentForm'
+		)->with(
+			'message',
+			sprintf(__('Status was changed to %s'), $state->value)
 		);
 	}
 }

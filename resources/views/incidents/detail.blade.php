@@ -4,10 +4,29 @@
 		<fieldset class="border border-black mb-4 p-3">
 			<legend class="col mb-4 h3 fw-bold">{{$incident->caption}}</legend>
 			<div class="row mb-2">
-				<div class="col-3">
+				<div class="col-2">
+					{{__('State')}}
+				</div>
+				<div class="col-4">
+					<div class="dropdown">
+						<span  id="dropdownState" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="fw-bold">{{$incident->state }}</span>
+							<i class="fa fa-arrow-right-rotate"></i>
+						</span>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							@foreach(\AppHealer\Enums\IncidentState::cases() as $state)
+								<a class="dropdown-item" href="{{route('incidents.change-state', ['incident' => $incident, 'state' => $state])}}">
+									{{$state->value}}
+								</a>
+							@endforeach
+						</div>
+					</div>
+
+				</div>
+				<div class="col-2">
 					{{__('Asignee')}}
 				</div>
-				<div class="col-9">
+				<div class="col-4">
 					<div class="dropdown">
 						<span  id="dropdownAsignee" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<span class="fw-bold">{{$incident->assignedTo ? $incident->assignedTo->name : 'unassigned'}}</span>
@@ -25,7 +44,7 @@
 				</div>
 			</div>
 			<div class="row mb-2">
-				<div class="col-3">
+				<div class="col-2">
 						{{__('Started')}}
 				</div>
 				<div class="col-6 fw-bold">
@@ -33,7 +52,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-3">
+				<div class="col-2">
 					{{__('Author')}}
 				</div>
 				<div class="col-9">
@@ -69,15 +88,26 @@
 					</div>
 
 					<div class="p-2">
-						{!!
-							sprintf(
-								__('<span class="fst-italic">incident assigned to</span> <span class="fw-bold">%s</span>'),
-								$item->assignedUser->name
-							)
-						!!}
-						@if($item->prevAssignedUser)
-							({{sprintf(__('was %s'),  $item->prevAssignedUser->name)}})
-						@endif
+						@php
+							if ($item->assignedUser !== null) {
+								$message = sprintf(
+									__('<span class="fst-italic">incident assigned to</span> <span class="fw-bold">%s</span>'),
+									$item->assignedUser->name
+								);
+								if($item->prevAssignedUser !== null) {
+									$prevMessage = sprintf(__('was %s'),  $item->prevAssignedUser->name);
+								}
+							} else {
+								$message = sprintf(
+									__('<span class="fst-italic">status set to </span> <span class="fw-bold">%s</span>'),
+									$item->state
+								);
+								$prevMessage = sprintf(__('was %s'),  $item->prev_state);
+							}
+						@endphp
+						{!!$message!!}
+						({{$prevMessage}})
+
 					</div>
 
 				</fieldset>

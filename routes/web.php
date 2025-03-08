@@ -47,6 +47,7 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/incidents/{incident}', [\AppHealer\Http\Controllers\IncidentController::class, 'detail'])->name('incidents.detail');
 	Route::post('/incidents/{incident}/comment', [\AppHealer\Http\Controllers\IncidentController::class, 'comment'])->name('incidents.comments.submit');
 	Route::get('/incidents/{incident}/assign/{user}', [\AppHealer\Http\Controllers\IncidentController::class, 'assign'])->name('incidents.assign');
+	Route::get('/incidents/{incident}/change-status/{state}', [\AppHealer\Http\Controllers\IncidentController::class, 'changeState'])->name('incidents.change-state');
 
 	Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
 	Route::fallback([\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'pageNotFound']);
