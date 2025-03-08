@@ -14,9 +14,11 @@
 			@foreach($incidents as $incident)
 				<tr>
 					<td>
-						<a href="{{route('incidents.detail', ['incident' => $incident])}}">#{{$incident->id}}</a>
+						<a class="link" href="{{route('incidents.detail', ['incident' => $incident])}}">#{{$incident->id}}</a>
 					</td>
-					<td>{{$incident->caption}}</td>
+					<td>
+						<a class="link" href="{{route('incidents.detail', ['incident' => $incident])}}">{{$incident->caption}}</a>
+					</td>
 					<td>{{$incident->monitor->name}}</td>
 					<td>{{$incident->datetime_created}}</td>
 					<td>{{$incident->assignedTo?->name}}</td>
