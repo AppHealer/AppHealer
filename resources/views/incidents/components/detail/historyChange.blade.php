@@ -1,9 +1,9 @@
 <fieldset class="border p-2 mb-3  border-1">
 	<div class="row m-0">
-		<div class="col-6 border-bottom p-1">
+		<div class="col-6 border-bottom p-1 pt-0 m-0">
 			{{$item->createdBy->name,}}
 		</div>
-		<div class="col-6 text-end m-0 p-1 border-bottom">
+		<div class="col-6 text-end m-0 p-1 pt-0 border-bottom">
 			{{$item->datetime_created}}
 		</div>
 	</div>
@@ -30,6 +30,7 @@
 			@if($item->state !== null)
 				<div class="col-auto">
 					@include('incidents.components.state', ['state' => $item->state])
+
 				</div>
 			@endif
 			<div class="col mt-1">
