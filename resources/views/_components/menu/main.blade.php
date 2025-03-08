@@ -3,25 +3,25 @@
 		<li class="nav-item">
 			<a class="nav-link {{ isset($page) && $page == 'dashboard' ? 'active' : '' }}" href="{{ route('dashboard') }}">
 				<span class="fa-solid fa-chart-area"></span>
-				{{ __('Dashboard') }}
+				<span class="d-none d-md-inline">{{ __('Dashboard') }}</span>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link {{ isset($page) && $page == 'monitors' ? 'active' : '' }}" href="{{ route('monitors') }}">
 				<span class="fa-solid fa-heart-circle-check"></span>
-				{{ __('Monitors') }}
+				<span class="d-none d-md-inline">{{ __('Monitors') }}</span>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link {{ isset($page) && $page == 'users' ? 'active' : '' }}" href="{{ route('users') }}">
 				<span class="fa-solid fa-user-group"></span>
-				{{ __('Users') }}
+				<span class="d-none d-md-inline">{{ __('Users') }}</span>
 			</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link {{ isset($page) && $page == 'incidents' ? 'active' : '' }}" href="{{ route('incidents') }}">
 				<span class="fa-solid fa-exclamation-triangle"></span>
-				{{ __('Incidents') }}
+				<span class="d-none d-md-inline">{{ __('Incidents') }}</span>
 			</a>
 		</li>
 	</ul>
