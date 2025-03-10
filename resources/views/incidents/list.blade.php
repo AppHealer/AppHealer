@@ -51,7 +51,7 @@
 							)
 						}}
 					</td>
-					<td class="align-middle d-none d-md-table-cell colAssigned">{{$incident->createdBy ? $incident->createdBy->name : 'AppHealer'}}</td>
+					<td class="align-middle d-none d-md-table-cell colAssigned">{{$incident->assignedTo?->name}}</td>
 				</tr>
 			@endforeach
 		</tbody>
