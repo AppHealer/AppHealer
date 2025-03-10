@@ -20,4 +20,3 @@ parameters:
 			identifier: arguments.count
 			path: app/Console/Commands/WaitForDatabaseIsUp.php
 			count: 1
-		-
