@@ -12,9 +12,8 @@ class IncidentHistory extends Model
 	protected $table = 'incident_history';
 
 	protected $casts = [
-		'state' => IncidentState::class,
 		'prev_state' => IncidentState::class,
-
+		'state' => IncidentState::class,
 	];
 
 	protected $fillable = [
@@ -22,6 +21,8 @@ class IncidentHistory extends Model
 		'created_by',
 		'assigned_user_id',
 		'prev_assigned_user_id',
+		'state',
+		'prev_state',
 	];
 
 	public function incident(): BelongsTo

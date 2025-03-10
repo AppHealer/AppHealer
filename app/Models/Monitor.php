@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AppHealer\Models;
 
 use AppHealer\Casts\Password;
+use AppHealer\Enums\AutomaticallyCreatedIncidentType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -38,12 +39,18 @@ class Monitor extends Model
 			->orderBy('eventtime', 'desc');
 	}
 
-	public function lastChecks(int $limit): Collection
+	public function lastChecks(
+		int $limit,
+		bool $fromOldest = true
+	): Collection
 	{
-		return $this->hasMany(MonitorCheck::class)
+		$checks = $this->hasMany(MonitorCheck::class)
 			->orderBy('eventtime', 'desc')
-			->limit($limit)->get()
-		->sortBy('eventtime');
+			->limit($limit)->get();
+		if ($fromOldest) {
+			return $checks->sortBy('eventtime');
+		}
+		return $checks;
 
 	}
 
@@ -103,5 +110,15 @@ class Monitor extends Model
 			'down' => 'datetime',
 			'up' => 'datetime',
 		];
+	}
+
+	public function getOpenedAutomaticallyCreatedIncident(
+		AutomaticallyCreatedIncidentType $type,
+	): ?Incident
+	{
+		return $this->incidents()
+			->notClosed()
+			->where('automaticType', $type)
+			->first();
 	}
 }

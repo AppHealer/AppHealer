@@ -3,6 +3,11 @@ declare(strict_types=1);
 
 namespace AppHealer\Jobs\Checks;
 
+use AppHealer\Enums\AutomaticallyCreatedIncidentType;
+use AppHealer\Enums\IncidentState;
+use AppHealer\Models\Incident;
+use AppHealer\Models\IncidentComment;
+use AppHealer\Models\IncidentHistory;
 use AppHealer\Models\Monitor;
 use AppHealer\Models\MonitorCheck;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -39,6 +44,8 @@ class WebsiteCheck implements ShouldQueue
 			'statuscode' => isset($result) ? $result->getStatusCode() : 0,
 			'timeout' => $start->diffInMilliseconds(now())
 		]);
+		$this->closeIncidentIfRequired($check->monitor);
+		$this->createIncidentIfRequired($check->monitor);
 	}
 
 	protected function getClient(): PendingRequest
@@ -56,5 +63,103 @@ class WebsiteCheck implements ShouldQueue
 			);
 		}
 		return $client;
+	}
+
+	protected function createIncidentIfRequired(Monitor $monitor): void
+	{
+		if (
+			$monitor->incidentCreateAvg !== null
+			&& !$monitor->getOpenedAutomaticallyCreatedIncident(
+				AutomaticallyCreatedIncidentType::AVG
+			)
+		) {
+			$this->createAvgIncidentIfRequired($monitor);
+		}
+	}
+
+	protected function closeIncidentIfRequired(Monitor $monitor): void
+	{
+		if (
+			$monitor->incidentCloseAvg !== null
+			&& $monitor->getOpenedAutomaticallyCreatedIncident(
+				AutomaticallyCreatedIncidentType::AVG
+			)
+		) {
+			$this->closeAvgIncidentIfRequired($monitor);
+		}
+	}
+
+	protected function createAvgIncidentIfRequired(Monitor $monitor): void
+	{
+		$checks = $monitor->lastChecks(10, false);
+		$timeouts = array_column($checks->toArray(), 'timeout');
+		$avg = (int)(array_sum($timeouts) / count($timeouts));
+		if ($avg > $monitor->incidentCreateAvg) {
+			$this->createIncident(
+				$monitor,
+				AutomaticallyCreatedIncidentType::AVG,
+				__('Large average timeout'),
+				sprintf(
+					'Average timeout is %s ms. Limit is %s ms',
+					$avg,
+					$monitor->incidentCreateAvg
+				)
+			);
+		}
+	}
+
+	protected function closeAvgIncidentIfRequired(Monitor $monitor): void
+	{
+		$checks = $monitor->lastChecks(10, false);
+		$timeouts = array_column($checks->toArray(), 'timeout');
+		$avg = (int)(array_sum($timeouts) / count($timeouts));
+		if ($avg < $monitor->incidentCloseAvg) {
+			$this->closeIncident(
+				$monitor->getOpenedAutomaticallyCreatedIncident(
+					AutomaticallyCreatedIncidentType::AVG
+				),
+				sprintf(
+					'Average timeout is below %s ms. Current average timeout is %s ms',
+					$monitor->incidentCloseAvg,
+					$avg
+				)
+			);
+		}
+	}
+
+	protected function createIncident(
+		Monitor $monitor,
+		AutomaticallyCreatedIncidentType $type,
+		string $caption,
+		string $message
+	): void
+	{
+		$incident = new Incident([
+			'automaticType' => $type,
+			'caption' => $caption,
+		]);
+		$monitor->incidents()->save($incident);
+		$comment = new IncidentComment([
+			'comment' => $message,
+		]);
+		$incident->comments()->save($comment);
+	}
+
+	protected function closeIncident(
+		Incident $incident,
+		string $message
+	): void
+	{
+		$comment = new IncidentComment([
+			'comment' => $message,
+		]);
+		$incident->comments()->save($comment);
+		$history = new IncidentHistory([
+			'prev_state' => $incident->state,
+			'state' => IncidentState::CLOSED,
+		]);
+		$incident->state = IncidentState::CLOSED;
+		$incident->history()->save($history);
+		$incident->save();
 	}
 }

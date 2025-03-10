@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AppHealer\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MonitorCheck extends Model
 {
@@ -28,5 +29,10 @@ class MonitorCheck extends Model
 			'eventtime' => 'datetime',
 			'failed'  => 'boolean',
 		];
+	}
+
+	public function monitor(): BelongsTo
+	{
+		return $this->belongsTo(Monitor::class);
 	}
 }

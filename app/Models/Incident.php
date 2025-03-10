@@ -3,7 +3,9 @@ declare(strict_types=1);
 
 namespace AppHealer\Models;
 
+use AppHealer\Enums\AutomaticallyCreatedIncidentType;
 use AppHealer\Enums\IncidentState;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -15,6 +17,7 @@ class Incident extends Model
 
 	protected $fillable = [
 		'assigned_user_id',
+		'automaticType',
 		'caption',
 		'closed_by',
 		'created_by',
@@ -23,6 +26,7 @@ class Incident extends Model
 	];
 
 	protected $casts = [
+		'automaticType' => AutomaticallyCreatedIncidentType::class,
 		'datetime_closed' => 'datetime',
 		'datetime_created' => 'datetime',
 		'state' => IncidentState::class,
@@ -69,6 +73,10 @@ class Incident extends Model
 			->merge($this->comments)
 			->sortBy('datetime_created');
 		return $rslt;
+	}
 
+	public function scopeNotClosed(Builder $query): Builder
+	{
+		return $query->whereNot('state', IncidentState::CLOSED);
 	}
 }
