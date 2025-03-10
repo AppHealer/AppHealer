@@ -70,8 +70,8 @@ class Incident extends Model
 	public function getHistory(): Collection
 	{
 		$rslt = $this->history
-			->merge($this->comments)
-			->sortBy('datetime_created');
+			->concat($this->comments)
+			->sortBy('created_at');
 		return $rslt;
 	}
 
