@@ -14,6 +14,7 @@
 		</thead>
 		<tbody>
 			@foreach($incidents as $incident)
+
 				<tr>
 					<td class="align-middle colState">@include('incidents.components.state', ['state' => $incident->state])</td>
 
@@ -56,4 +57,6 @@
 			@endforeach
 		</tbody>
 	</table>
+
+	{{ $incidents->links() }}
 @endsection

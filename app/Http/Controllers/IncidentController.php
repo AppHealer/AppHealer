@@ -19,10 +19,14 @@ class IncidentController
 
 	public function list(): Response
 	{
+		$incidents = Incident::query()
+			->orderBy('created_at', 'desc')
+			->paginate(10);
+
 		return response()->view(
 			'incidents.list',
 			[
-				'incidents' => Incident::query()->orderBy('created_at', 'desc')->get(),
+				'incidents' => $incidents
 			]
 		);
 	}
