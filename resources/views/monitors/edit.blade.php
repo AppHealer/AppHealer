@@ -133,7 +133,7 @@
 
 			<div class="row mb-2">
 				<div class="col-8">
-					<label class="col-form-label" for="fieldIncidentCreateAfterAvg">{{__('Create when 1h avg timeout over ms')}}</label>
+					<label class="col-form-label" for="fieldIncidentCreateAfterAvg">{{__('Create when last 10 avg timeout over ms')}}</label>
 				</div>
 				<div class="col-4">
 					<input type="number" class="form-control {{ $errors->has('incidentCreateAvg') ? 'is-invalid': '' }}" min="0" max="10000" name="incidentCreateAvg" id="fieldIncidentCreateAfterAvg" value="{{old('incidentCreateAvg') ?? (isset($monitor) ? $monitor->incidentCreateAvg : '')}}"/>
@@ -145,7 +145,7 @@
 
 			<div class="row mb-2">
 				<div class="col-8">
-					<label class="col-form-label" for="fieldIncidentCloseAfterAvg">{{__('Close when 1h avg below over ms')}}</label>
+					<label class="col-form-label" for="fieldIncidentCloseAfterAvg">{{__('Close when last 10 avg below over ms')}}</label>
 				</div>
 				<div class="col-4">
 					<input type="number" class="form-control {{ $errors->has('incidentCloseAvg') ? 'is-invalid': '' }}" min="0" max="10000" step="100" name="incidentCloseAvg" id="fieldIncidentCloseAfterAvg" value="{{old('incidentCloseAvg') ?? (isset($monitor) ? $monitor->incidentCloseAvg : '')}}"/>
