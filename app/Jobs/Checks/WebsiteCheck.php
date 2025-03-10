@@ -158,8 +158,8 @@ class WebsiteCheck implements ShouldQueue
 			'prev_state' => $incident->state,
 			'state' => IncidentState::CLOSED,
 		]);
-		$incident->state = IncidentState::CLOSED;
 		$incident->history()->save($history);
+		$incident->state = IncidentState::CLOSED;
 		$incident->save();
 	}
 }
