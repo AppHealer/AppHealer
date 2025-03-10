@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class NotFoundController
 {
+
 	public function pageNotFound(): Response
 	{
 		return response()

@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 
 class CreateUser extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

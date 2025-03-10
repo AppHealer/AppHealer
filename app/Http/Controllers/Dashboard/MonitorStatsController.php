@@ -58,7 +58,6 @@ class MonitorStatsController
 			);
 	}
 
-
 	protected function buildSlowestQuery(int $hours): Builder
 	{
 		return Monitor::query()

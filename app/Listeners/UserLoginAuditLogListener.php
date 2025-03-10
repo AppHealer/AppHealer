@@ -10,6 +10,7 @@ use Illuminate\Auth\Events\Login;
 
 class UserLoginAuditLogListener
 {
+
 	public function handleUserLogin(Login $event): void
 	{
 		$this->storeEvent($event, false);

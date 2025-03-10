@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ChangePasswordRequest extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

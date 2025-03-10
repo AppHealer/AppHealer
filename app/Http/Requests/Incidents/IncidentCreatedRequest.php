@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class IncidentCreatedRequest extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

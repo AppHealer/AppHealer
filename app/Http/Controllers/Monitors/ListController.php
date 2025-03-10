@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class ListController
 {
+
 	public function index(): Response
 	{
 		$monitors = $this->getMonitors(

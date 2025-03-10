@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class SaveEnvRequest extends FormRequest
 {
+
 	/**
 	 * @return string[]
 	 */

@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 
 class LastLoginsController
 {
+
 	public function index(): Response
 	{
 		/**
@@ -21,6 +22,5 @@ class LastLoginsController
 					->loginAuditlog->take(5)
 			]
 		);
-
 	}
 }

@@ -15,6 +15,7 @@ use Illuminate\Http\Response;
 
 class DetailController
 {
+
 	public function detail(
 		Monitor $monitor
 	): Response

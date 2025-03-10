@@ -5,6 +5,7 @@ namespace AppHealer\DTOs;
 
 class CheckStateDTO
 {
+
 	public function __construct(
 		protected int $index = 0,
 		protected string $label = '',

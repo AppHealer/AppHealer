@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 
 class SaveProfileRequest extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

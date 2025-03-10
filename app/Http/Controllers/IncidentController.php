@@ -16,6 +16,7 @@ use Illuminate\Http\Response;
 
 class IncidentController
 {
+
 	public function list(): Response
 	{
 		return response()->view(

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AddCommentRequest extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

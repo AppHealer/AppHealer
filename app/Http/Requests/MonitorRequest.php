@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class MonitorRequest extends FormRequest
 {
+
 	/**
 	 * @return mixed[]
 	 */

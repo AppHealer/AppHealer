@@ -8,6 +8,7 @@ use AppHealer\Models\Monitor;
 
 class MonitorDispatcher
 {
+
 	public function dispatchMonitors(int $interval): void
 	{
 		$monitors = Monitor::query()

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class Password implements CastsAttributes
 {
+
 	/**
 	 * Cast the given value.
 	 *

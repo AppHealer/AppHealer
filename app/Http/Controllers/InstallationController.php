@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 
 class InstallationController
 {
+
 	public function index(): Response|RedirectResponse
 	{
 		if (!env('MAIL_HOST')) {
