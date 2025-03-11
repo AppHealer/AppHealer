@@ -76,6 +76,15 @@ class WebsiteCheck implements ShouldQueue
 		) {
 			$this->createAvgIncidentIfRequired($monitor);
 		}
+
+		if (
+			$monitor->incidentCreateCount !== null
+			&& !$monitor->getOpenedAutomaticallyCreatedIncident(
+				AutomaticallyCreatedIncidentType::COUNT
+			)
+		) {
+			$this->createCountIncidentIfRequired($monitor);
+		}
 	}
 
 	protected function closeIncidentIfRequired(Monitor $monitor): void
@@ -88,6 +97,38 @@ class WebsiteCheck implements ShouldQueue
 		) {
 			$this->closeAvgIncidentIfRequired($monitor);
 		}
+
+		if (
+			$monitor->incidentCloseCount !== null
+			&& $monitor->getOpenedAutomaticallyCreatedIncident(
+				AutomaticallyCreatedIncidentType::COUNT
+			)
+		) {
+			$this->closeCountIncidentIfRequired($monitor);
+		}
+	}
+
+	protected function createCountIncidentIfRequired(Monitor $monitor): void
+	{
+		$checks = $monitor->lastChecks(
+			$monitor->incidentCreateCount,
+			false
+		);
+		foreach ($checks as $check) {
+			if ($check->failed == false) {
+				return;
+			}
+		}
+
+		$this->createIncident(
+			$monitor,
+			AutomaticallyCreatedIncidentType::COUNT,
+			__('Series of failures'),
+			sprintf(
+				__('%s failed checks in a row.'),
+				$monitor->incidentCreateCount
+			)
+		);
 	}
 
 	protected function createAvgIncidentIfRequired(Monitor $monitor): void
@@ -107,6 +148,29 @@ class WebsiteCheck implements ShouldQueue
 				)
 			);
 		}
+	}
+
+	protected function closeCountIncidentIfRequired(Monitor $monitor): void
+	{
+		$checks = $monitor->lastChecks(
+			$monitor->incidentCreateCount,
+			false
+		);
+		foreach ($checks as $check) {
+			if ($check->failed == true) {
+				return;
+			}
+		}
+
+		$this->closeIncident(
+			$monitor->getOpenedAutomaticallyCreatedIncident(
+				AutomaticallyCreatedIncidentType::COUNT
+			),
+			sprintf(
+				__('%s good checks in a row.'),
+				$monitor->incidentCloseCount
+			)
+		);
 	}
 
 	protected function closeAvgIncidentIfRequired(Monitor $monitor): void
