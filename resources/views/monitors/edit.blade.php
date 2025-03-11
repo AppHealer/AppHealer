@@ -104,7 +104,7 @@
 		</fieldset>
 
 		<fieldset class="border p-3 mb-3">
-			<legend>{{__('Automated incident creating')}}</legend>
+			<legend>{{__('Incident management')}}</legend>
 			<div class="row mb-2">
 				<div class="col-8" >
 					<label class="col-form-label" for="fieldIncidentCreateAfterCount">{{__('Create after count of failures')}}</label>
@@ -151,6 +151,18 @@
 					<input type="number" class="form-control {{ $errors->has('incidentCloseAvg') ? 'is-invalid': '' }}" min="0" max="10000" step="100" name="incidentCloseAvg" id="fieldIncidentCloseAfterAvg" value="{{old('incidentCloseAvg') ?? (isset($monitor) ? $monitor->incidentCloseAvg : '')}}"/>
 					@if ($errors->hasAny('incidentCloseAvg'))
 						<div class="invalid-feedback">{{$errors->first('incidentCloseAvg')}}</div>
+					@endif
+				</div>
+			</div>
+
+			<div class="row mb-2">
+				<div class="col-md-5 col-12">
+					<label class="col-form-label" for="fieldNotificationEmail">{{__('Send notification to')}}</label>
+				</div>
+				<div class="col-md-7 col-12">
+					<input type="text" class="form-control {{ $errors->has('notificationEmail') ? 'is-invalid': '' }}"  name="notificationEmail" id="fieldNotificationEmail" value="{{old('notificationEmail') ?? (isset($monitor) ? $monitor->notificationEmail : '')}}"/>
+					@if ($errors->hasAny('notificationEmail'))
+						<div class="invalid-feedback">{{$errors->first('notificationEmail')}}</div>
 					@endif
 				</div>
 			</div>

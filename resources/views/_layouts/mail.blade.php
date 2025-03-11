@@ -8,7 +8,7 @@
 			<table style="max-width:700px;margin-left:auto;margin-right:auto;border-collapse: collapse;">
 				<tr>
 					<td style="background-color:#000;padding:10px;">
-						<img src="{{$message->embed('images/logo.png')}}"/>
+						<img src="{{$message->embed('public/images/logo.png')}}"/>
 					</td>
 				</tr>
 				<tr>

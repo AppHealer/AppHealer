@@ -10,6 +10,7 @@ use AppHealer\Models\IncidentComment;
 use AppHealer\Models\IncidentHistory;
 use AppHealer\Models\Monitor;
 use AppHealer\Models\MonitorCheck;
+use AppHealer\Services\IncidentNotifier;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Http\Client\ConnectionException;
@@ -143,6 +144,8 @@ class WebsiteCheck implements ShouldQueue
 			'comment' => $message,
 		]);
 		$incident->comments()->save($comment);
+		$incident->refresh();
+		app()->make(IncidentNotifier::class)->notifyFromAutomat($incident);
 	}
 
 	protected function closeIncident(
@@ -161,5 +164,6 @@ class WebsiteCheck implements ShouldQueue
 		$incident->history()->save($history);
 		$incident->state = IncidentState::CLOSED;
 		$incident->save();
+		app()->make(IncidentNotifier::class)->notifyFromAutomat($incident);
 	}
 }

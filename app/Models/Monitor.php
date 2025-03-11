@@ -26,6 +26,7 @@ class Monitor extends Model
 		'incidentCloseAvg',
 		'incidentCloseCount',
 		'interval',
+		'notificationEmail',
 		'timeout',
 	];
 
