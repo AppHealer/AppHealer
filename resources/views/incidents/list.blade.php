@@ -1,7 +1,19 @@
 @extends('_layouts.app', ['page' => 'incidents', 'title' => 'Incidents'])
 @section('content')
 	<a href="{{route('incidents.create')}}" class="btn">{{__('New incident')}}</a>
-	<table class="table incidents mt-3 w-auto">
+
+	<div class="row filter-incidents mt-4 m-1">
+		@include('incidents.components.list.filter')
+		<div class="row">
+			<div class="col"></div>
+			<div class="col-auto">
+				{{ $incidents->links() }}
+			</div>
+		</div>
+	</div>
+
+
+	<table class="table incidents mt-2 w-auto">
 		<thead>
 			<tr>
 				<th class="colState"></th>
@@ -57,6 +69,4 @@
 			@endforeach
 		</tbody>
 	</table>
-
-	{{ $incidents->links() }}
 @endsection

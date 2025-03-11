@@ -11,6 +11,7 @@ use AppHealer\Models\IncidentComment;
 use AppHealer\Models\IncidentHistory;
 use AppHealer\Models\Monitor;
 use AppHealer\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
 
@@ -20,13 +21,14 @@ class IncidentController
 	public function list(): Response
 	{
 		$incidents = Incident::query()
-			->orderBy('created_at', 'desc')
-			->paginate(10);
+			->orderBy('created_at', 'desc');
+		$this->applySearchFilter($incidents);
 
 		return response()->view(
 			'incidents.list',
 			[
-				'incidents' => $incidents
+				'incidents' => $incidents->paginate(10),
+				'monitors' => Monitor::query()->whereHas('incidents')->get(),
 			]
 		);
 	}
@@ -171,5 +173,50 @@ class IncidentController
 				'error',
 				__('Incident already closed')
 			);
+	}
+
+	protected function applySearchFilter(Builder $query): void
+	{
+		if (request('monitor')) {
+			$query->where('monitor_id', request('monitor'));
+		}
+		if (request('dateFrom')) {
+			$query->where( 'created_at', '>=', request('dateFrom')
+			);
+		}
+
+		if (request('dateTo')) {
+			$query->where('created_at', '<=', request('dateTo'));
+		}
+
+		$this->applySearchFilterState($query);
+
+	}
+
+	protected function applySearchFilterState(Builder $query): void
+	{
+		switch (request('state')) {
+			case 'new':
+				$query->where('state', IncidentState::NEW);
+				break;
+			case 'workingon':
+				$query->whereIn(
+					'state',
+					[
+						IncidentState::CONFIRMED,
+						IncidentState::INVESTIGATING,
+						IncidentState::FIXING,
+						IncidentState::MONITORING,
+					]
+				);
+				break;
+			case 'closed':
+				$query->where('state', IncidentState::CLOSED);
+				break;
+			case 'unclosed':
+			default:
+				$query->whereNot('state', IncidentState::CLOSED);
+		}
+
 	}
 }
