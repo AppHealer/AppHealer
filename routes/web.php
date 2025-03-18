@@ -11,8 +11,10 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/users/create', [\AppHealer\Http\Controllers\UsersController::class, 'create'])->name('users.create');
 	Route::post('/users/save', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save.new');
 	Route::get('/users/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'userNotFound'])->name('users.missing');
-	Route::get('/users/{user}/block', [\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block')->missing(function(){return redirect(route('users.missing'));});
-	Route::get('/users/{user}/delete', [\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete')->missing(function(){return redirect(route('users.missing'));});
+	Route::middleware('isNotMe')->group(function() {
+		Route::get('/users/{user}/block',[\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block')->missing(function () {return redirect(route('users.missing'));});
+		Route::get('/users/{user}/delete',[\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete')->missing(function () {return redirect(route('users.missing'));});
+	});
 	Route::post('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save')->missing(function(){return redirect(route('users.missing'));});
 	Route::get('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'edit'])->name('users.edit')->missing(function(){return redirect(route('users.missing'));});
 
@@ -39,8 +41,11 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/monitors/{monitor}/team', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'list'])->name('monitors.team')->missing(function(){return redirect(route('monitors.missing'));});
 	Route::get('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'add'])->name('monitors.team.add')->missing(function(){return redirect(route('monitors.missing'));});
 	Route::post('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'addSubmit'])->name('monitors.team.add.submit')->missing(function(){return redirect(route('monitors.missing'));});
-	Route::get('/monitors/{monitor}/team/remove/{user}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'removeFromTeam'])->name('monitors.team.remove')->missing(function(){return redirect(route('monitors.missing'));});
-	Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign')->missing(function(){return redirect(route('monitors.missing'));});
+
+	Route::middleware('isNotMe')->group(function(){
+		Route::get('/monitors/{monitor}/team/remove/{user}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'removeFromTeam'])->name('monitors.team.remove')->missing(function(){return redirect(route('monitors.missing'));});
+		Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign')->missing(function(){return redirect(route('monitors.missing'));});
+	});
 
 
 	Route::get('/dashboard/lastLogins', [\AppHealer\Http\Controllers\Dashboard\LastLoginsController::class, 'index'])->name('dashboard.lastLogins');

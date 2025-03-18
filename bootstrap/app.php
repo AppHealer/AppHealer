@@ -2,6 +2,7 @@
 
 use AppHealer\Http\Middleware\Installed;
 use AppHealer\Http\Middleware\IsNotLocked;
+use AppHealer\Http\Middleware\IsNotMe;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
 		$middleware->alias([
 			'isNotLocked' => IsNotLocked::class,
 			'installed' => Installed::class,
+			'isNotMe' => IsNotMe::class,
 		]);
 	})
 	->withProviders(require 'providers.php')

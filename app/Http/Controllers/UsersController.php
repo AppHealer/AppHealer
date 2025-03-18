@@ -69,17 +69,6 @@ class UsersController
 		User $user,
 	): RedirectResponse
 	{
-		if ($user->id === auth()->user()->id) {
-			return response()
-				->redirectToRoute(
-					'users',
-					['page' => request()->get('page')]
-				)
-				->with(
-					'error',
-					__('Cannot lock yourself.')
-				);
-		}
 		$user->blocked = !$user->blocked;
 		$user->save();
 		return response()
@@ -94,17 +83,6 @@ class UsersController
 		User $user,
 	): RedirectResponse
 	{
-		if ($user->id === auth()->user()->id) {
-			return response()
-				->redirectToRoute(
-					'users',
-					['page' => request()->get('page')]
-				)
-				->with(
-					'error',
-					__('Cannot delete yourself.')
-				);
-		}
 		$user->delete();
 		return response()
 			->redirectToRoute(
