@@ -49,6 +49,8 @@
 					<div class="col-md-auto col-sm-12">
 						<img class="timeoutGraph" src="{{route('monitors.list.timeout.graph', ['monitor' => $monitor])}}?{{$monitor->lastcheck?->id}}"/>
 					</div>
+				@else
+					<div class="timeoutGraph">&nbsp;</div>
 				@endif
 			</td>
 			<td class="colUptime text-end align-middle">
