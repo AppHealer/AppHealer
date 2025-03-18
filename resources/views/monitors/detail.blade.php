@@ -9,6 +9,7 @@
 	<div class="mb-4">
 		<a class="btn" href="{{route('monitors.edit', ['monitor' => $monitor])}}">{{__('Edit monitor')}}</a>
 		<a class="btn" href="{{route('monitors.schedule', ['monitor' => $monitor])}}">{{__('Check now')}}</a>
+		<a class="btn" href="{{route('monitors.team', ['monitor' => $monitor])}}">{{__('Manage team')}}</a>
 	</div>
 
 	@include('monitors.components.detail.datetimeFilter')

@@ -36,6 +36,13 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/monitors/{monitor}/schedule', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'schedule'])->name('monitors.schedule')->missing(function(){return redirect(route('monitors.missing'));});
 	Route::get('/monitors/{monitor}', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'detail'])->name('monitors.detail')->missing(function(){return redirect(route('monitors.missing'));});
 
+	Route::get('/monitors/{monitor}/team', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'list'])->name('monitors.team')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::get('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'add'])->name('monitors.team.add')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::post('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'addSubmit'])->name('monitors.team.add.submit')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::get('/monitors/{monitor}/team/remove/{user}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'removeFromTeam'])->name('monitors.team.remove')->missing(function(){return redirect(route('monitors.missing'));});
+	Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign')->missing(function(){return redirect(route('monitors.missing'));});
+
+
 	Route::get('/dashboard/lastLogins', [\AppHealer\Http\Controllers\Dashboard\LastLoginsController::class, 'index'])->name('dashboard.lastLogins');
 	Route::get('/dashboard/monitors/failed/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'failed'])->name('dashboard.monitors.failed');
 	Route::get('/dashboard/monitors/slow/{hours}', [\AppHealer\Http\Controllers\Dashboard\MonitorStatsController::class, 'slow'])->name('dashboard.monitors.slow');

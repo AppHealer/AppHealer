@@ -5,9 +5,11 @@ namespace AppHealer\Models;
 
 use AppHealer\Casts\Password;
 use AppHealer\Enums\AutomaticallyCreatedIncidentType;
+use AppHealer\Enums\MonitorUserRole;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -31,7 +33,8 @@ class Monitor extends Model
 	];
 
 	protected $casts = [
-		'httpBasicAuthPassword' => Password::class
+		'httpBasicAuthPassword' => Password::class,
+		'team.pivot.role' => MonitorUserRole::class,
 	];
 
 	public function checks(): HasMany
@@ -121,5 +124,17 @@ class Monitor extends Model
 			->notClosed()
 			->where('automaticType', $type)
 			->first();
+	}
+
+	public function team(): BelongsToMany
+	{
+		return $this->belongsToMany(
+			User::class,
+			'monitor_teams',
+			'monitor_id',
+			'user_id'
+		)->withPivot(
+			'role'
+		)->using(MonitorTeamMember::class);
 	}
 }
