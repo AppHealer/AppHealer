@@ -1,6 +1,7 @@
 <?php
 
 use AppHealer\Http\Middleware\Installed;
+use AppHealer\Http\Middleware\IsAdmin;
 use AppHealer\Http\Middleware\IsNotLocked;
 use AppHealer\Http\Middleware\IsNotMe;
 use Illuminate\Foundation\Application;
@@ -18,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
 			'isNotLocked' => IsNotLocked::class,
 			'installed' => Installed::class,
 			'isNotMe' => IsNotMe::class,
+			'isAdmin' => IsAdmin::class,
 		]);
 	})
 	->withProviders(require 'providers.php')

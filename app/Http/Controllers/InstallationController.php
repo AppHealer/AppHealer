@@ -65,6 +65,7 @@ class InstallationController
 	{
 		Cache::flush();
 		$user = new User([
+			'admin' => true,
 			'email' => $request->input('email'),
 			'name' => $request->input('name'),
 			'password' => bcrypt($request->input('password')),

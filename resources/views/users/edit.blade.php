@@ -51,6 +51,24 @@
 				</div>
 			</div>
 		</fieldset>
+		<fieldset class="border mb-3 p-3">
+			<legend>Privileges</legend>
+			<div class="row mb-2">
+				<div class="col-md-4 col-sm-12">
+					<label class="col-form-label" for="fieldPhone">{{ __('Privileges type') }}</label>
+				</div>
+				<div class="col-md-8 col-sm-12">
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="admin" value="0" id="fieldPrivStandardUser" {{(old('admin') === "0" || (old('admin') === null && isset($user) && $user->admin == 0)) ? 'checked' : ''}}>
+						<label class="form-check-label" for="fieldPrivStandardUser">{{__('Standard user')}}</label>
+					</div>
+					<div class="form-check">
+						<input class="form-check-input" type="radio" name="admin" value="1" id="fieldPrivAdminUser"  {{(old('admin') === "1" || (old('admin') === null && isset($user) && $user->admin == 1)) ? 'checked' : ''}}>
+						<label class="form-check-label" for="fieldPrivAdminUser">{{__('Administrator')}}</label>
+					</div>
+				</div>
+			</div>
+		</fieldset>
 		<a class="btn btnBack" href="{{route('users')}}">{{__('Back')}}</a>
 		<input type="hidden" name="page" value="{{$pagingPage}}">
 		<input type="submit" class="btn btn-primary" value="{{ __('Save user')  }}">

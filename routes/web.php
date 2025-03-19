@@ -6,23 +6,25 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/', [\AppHealer\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
+	/* --------------- USERS ADMINISTRATION ----------------------------------- */
 	Route::get('/users', [\AppHealer\Http\Controllers\UsersController::class, 'index'])->name('users');
 	Route::get('/users/list', [\AppHealer\Http\Controllers\UsersController::class, 'list'])->name('users.list');
-	Route::get('/users/create', [\AppHealer\Http\Controllers\UsersController::class, 'create'])->name('users.create');
-	Route::post('/users/save', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save.new');
-	Route::get('/users/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'userNotFound'])->name('users.missing');
+	Route::middleware(['isAdmin'])->group(function() {
+		Route::get('/users/create', [\AppHealer\Http\Controllers\UsersController::class, 'create'])->name('users.create');
+		Route::post('/users/save', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save.new');
+		Route::get('/users/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'userNotFound'])->name('users.missing');
 
-	Route::missing(
-		function () {return redirect(route('users.missing'));}
-	)->group(function() {
-		Route::middleware('isNotMe')->group(function() {
-			Route::get('/users/{user}/block',[\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block');
-			Route::get('/users/{user}/delete',[\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
+		Route::missing(
+			function () {return redirect(route('users.missing'));}
+		)->group(function() {
+			Route::middleware('isNotMe')->group(function() {
+				Route::get('/users/{user}/block',[\AppHealer\Http\Controllers\UsersController::class, 'block'])->name('users.block');
+				Route::get('/users/{user}/delete',[\AppHealer\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
+			});
+			Route::post('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save');
+			Route::get('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
 		});
-		Route::post('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'save'])->name('users.edit.save');
-		Route::get('/users/{user}', [\AppHealer\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
 	});
-
 
 	Route::get('/profile/password', [\AppHealer\Http\Controllers\ProfileController::class, 'changePassword'])->name('profile.changePassword');
 	Route::post('/profile/password', [\AppHealer\Http\Controllers\ProfileController::class, 'changePasswordSubmit'])->name('profile.changePassword.submit');
@@ -68,6 +70,7 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/incidents/{incident}/change-status/{state}', [\AppHealer\Http\Controllers\IncidentController::class, 'changeState'])->name('incidents.change-state');
 
 	Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
+	Route::get('forbidden/need-admin', function() {return view('errors.need-admin');})->name('forbidden.need-admin');
 	Route::fallback([\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'pageNotFound']);
 });
 

@@ -21,6 +21,7 @@ class User extends Authenticapable
 	 * @var list<string>
 	 */
 	protected $fillable = [
+		'admin',
 		'blocked',
 		'email',
 		'name',
@@ -60,6 +61,7 @@ class User extends Authenticapable
 	protected function casts(): array
 	{
 		return [
+			'admin' => 'boolean',
 			'blocked' => 'boolean',
 			'email_verified_at' => 'datetime',
 			'password' => 'hashed',
