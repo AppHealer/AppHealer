@@ -18,7 +18,7 @@
 }
 
 fieldset {
-	max-width: 500px;
+	max-width: 700px;
 }
 
 input:focus, select:focus {
@@ -53,4 +53,11 @@ input:focus, select:focus {
 	.wrapper.focused {
 		border-color:#000000;
 	}
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+	background-color: $colorDarkGray;
+	border: 4px solid  $colorDarkGray;
+	outline: unset !important /* I added this one for Edge (chromium) support */
+
 }
