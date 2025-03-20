@@ -7,9 +7,31 @@
 )
 @section('content')
 	<div class="mb-4">
-		<a class="btn" href="{{route('monitors.edit', ['monitor' => $monitor])}}">{{__('Edit monitor')}}</a>
-		<a class="btn" href="{{route('monitors.schedule', ['monitor' => $monitor])}}">{{__('Check now')}}</a>
-		<a class="btn" href="{{route('monitors.team', ['monitor' => $monitor])}}">{{__('Manage team')}}</a>
+		@if(
+			auth()->user()->admin
+			|| auth()->user()->hasGlobalPrivilege('monitors', 'edit-all')
+			|| auth()->user()->getRoleInMonitor($monitor)?->canEdit()
+		)
+			<a class="btn" href="{{route('monitors.edit', ['monitor' => $monitor])}}">{{__('Edit monitor')}}</a>
+		@endif
+		@if(
+			auth()->user()->admin
+			|| auth()->user()->hasGlobalPrivilege('monitors', 'run-all')
+			|| auth()->user()->getRoleInMonitor($monitor)?->canRun()
+		)
+			<a class="btn" href="{{route('monitors.schedule', ['monitor' => $monitor])}}">{{__('Check now')}}</a>
+		@endif
+		<a class="btn" href="{{route('monitors.team', ['monitor' => $monitor])}}">
+			@if(
+				auth()->user()->admin
+				|| auth()->user()->hasGlobalPrivilege('monitors', 'team-all')
+				|| auth()->user()->getRoleInMonitor($monitor)?->canManageTeam()
+			)
+				{{__('Manage team')}}
+			@else
+				{{__('View team')}}
+			@endif
+		</a>
 	</div>
 
 	@include('monitors.components.detail.datetimeFilter')

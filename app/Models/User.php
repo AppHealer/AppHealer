@@ -62,7 +62,7 @@ class User extends Authenticapable
 	{
 		return (
 			array_key_exists($group, $this->privileges) // @phpstan-ignore-line
-			&& array_key_exists($privilege, $this->privileges[$group]) 
+			&& array_key_exists($privilege, $this->privileges[$group])
 			&& $this->privileges[$group][$privilege] == 1
 		);
 	}
@@ -79,7 +79,7 @@ class User extends Authenticapable
 		return $this->monitorTeamRoles()
 			->where('monitor_id', $monitor->id)
 			->first()
-			->role;
+			?->role;
 	}
 
 	/**
