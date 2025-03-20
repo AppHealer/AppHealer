@@ -27,6 +27,7 @@ class User extends Authenticapable
 		'name',
 		'password',
 		'phone',
+		'privileges',
 	];
 
 
@@ -65,6 +66,7 @@ class User extends Authenticapable
 			'blocked' => 'boolean',
 			'email_verified_at' => 'datetime',
 			'password' => 'hashed',
+			'privileges' => 'array',
 		];
 	}
 
