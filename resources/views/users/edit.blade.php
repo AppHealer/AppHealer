@@ -50,7 +50,7 @@
 					@endif
 				</div>
 			</div>
-		</fieldset>¨
+		</fieldset>
 
 		<fieldset class="border mb-3 p-3 js-user-privileges">
 			<legend>Privileges</legend>
@@ -79,7 +79,16 @@
 					<div class="form-check">
 						<input type="hidden" name="privileges[monitors][create]" value="0">
 						<input class="form-check-input" type="checkbox" name="privileges[monitors][create]" value="1"  id="fieldPrivMonitorCreate"
-							{{(is_array(old('privileges')) && old('privileges')['monitors']['create'] === '1') || (old('privileges') === null && isset($user) && $user->privileges['monitors']['create'] ==='1') ? 'checked' :''}}
+							{{
+								(
+									is_array(old('privileges'))
+									&& old('privileges')['monitors']['create'] === '1'
+								) || (
+									old('privileges') === null
+									&& isset($user)
+									&& $user->hasGlobalPrivilege('monitors', 'create')
+								) ? 'checked' :''
+							}}
 						>
 						<label class="form-check-label" for="fieldPrivMonitorCreate">{{__('Create')}}</label>
 					</div>
@@ -95,7 +104,7 @@
 									old('privileges') === null
 									&& isset($user)
 									&& $user->admin === false
-									&& $user->privileges['monitors']['view-all'] ==='1'
+									&& $user->hasGlobalPrivilege('monitors', 'view-all')
 								) ? 'checked' : ''
 							}}
 						>
@@ -111,7 +120,7 @@
 								) || (
 									old('privileges') === null
 									&& isset($user)
-									&& $user->privileges['monitors']['edit-all'] ==='1'
+									&& $user->hasGlobalPrivilege('monitors', 'edit-all')
 								) ? 'checked' : ''
 							}}
 
@@ -123,7 +132,7 @@
 								) || (
 									old('privileges') === null
 									&& isset($user)
-									&& $user->privileges['monitors']['view-all'] === '0'
+									&& !$user->hasGlobalPrivilege('monitors', 'view-all')
 								) || (
 									!isset($user)
 								) ? 'disabled' : ''
@@ -143,7 +152,7 @@
 									old('privileges') === null
 									&& isset($user)
 									&& old('admin') === false
-									&& $user->privileges['monitors']['delete-all'] ==='1'
+									&& $user->hasGlobalPrivilege('monitors', 'delete-all')
 								) ? 'checked' : ''
 							}}
 
@@ -154,12 +163,74 @@
 								) || (
 									old('privileges') === null
 									&& isset($user)
-									&& $user->privileges['monitors']['view-all'] == '0'
+									&& !$user->hasGlobalPrivilege('monitors', 'view-all')
 								) || (!isset($user))
 								? 'disabled' : ''
 							}}
 						>
 						<label class="form-check-label" for="fieldPrivMonitorDeleteAll">{{__('Delete all')}}</label>
+					</div>
+
+					<div class="form-check">
+						<input type="hidden" name="privileges[monitors][team-all]" value="0">
+						<input class="form-check-input js-privileges-monitors-viewall-dependent" type="checkbox" name="privileges[monitors][team-all]" value="1"  id="fieldPrivMonitorTeamAll"
+								{{
+									(
+										is_array(old('privileges'))
+										&& (old('admin') === '0')
+										&& old('privileges')['monitors']['team-all'] === '1'
+									) || (
+										old('privileges') === null
+										&& isset($user)
+										&& $user->admin === false
+										&& $user->hasGlobalPrivilege('monitors', 'team-all')
+									) ? 'checked' : ''
+								}}
+
+								{{
+									(
+										is_array(old('privileges'))
+										&& old('privileges')['monitors']['view-all'] == '0'
+									) || (
+										old('privileges') === null
+										&& isset($user)
+										&& !$user->hasGlobalPrivilege('monitors', 'view-all')
+									) || (!isset($user))
+									? 'disabled' : ''
+								}}
+						>
+						<label class="form-check-label" for="fieldPrivMonitorTeamAll">{{__('Manage all teams')}}</label>
+					</div>
+
+					<div class="form-check">
+						<input type="hidden" name="privileges[monitors][run-all]" value="0">
+						<input class="form-check-input js-privileges-monitors-viewall-dependent" type="checkbox" name="privileges[monitors][run-all]" value="1"  id="fieldPrivMonitorRunAll"
+								{{
+									(
+										is_array(old('privileges'))
+										&& (old('admin') === '0')
+										&& old('privileges')['monitors']['run-all'] === '1'
+									) || (
+										old('privileges') === null
+										&& isset($user)
+										&& $user->admin === false
+										&& $user->hasGlobalPrivilege('monitors', 'run-all')
+									) ? 'checked' : ''
+								}}
+
+								{{
+									(
+										is_array(old('privileges'))
+										&& old('privileges')['monitors']['view-all'] == '0'
+									) || (
+										old('privileges') === null
+										&& isset($user)
+										&& !$user->hasGlobalPrivilege('monitors', 'view-all')
+									) || (!isset($user))
+									? 'disabled' : ''
+								}}
+						>
+						<label class="form-check-label" for="fieldPrivMonitorRunAll">{{__('Run all checks')}}</label>
 					</div>
 				</div>
 			</div>

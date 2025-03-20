@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace AppHealer\Models;
 
+use AppHealer\Enums\MonitorUserRole;
 use AppHealer\Notifications\Users\PasswordReset;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,6 +53,33 @@ class User extends Authenticapable
 		return $this->loginAuditlog()
 			->where('failed', false)
 			->first()?->eventtime;
+	}
+
+	public function hasGlobalPrivilege(
+		string $group,
+		string $privilege
+	): bool
+	{
+		return (
+			array_key_exists($group, $this->privileges) // @phpstan-ignore-line
+			&& array_key_exists($privilege, $this->privileges[$group]) 
+			&& $this->privileges[$group][$privilege] == 1
+		);
+	}
+
+	public function monitorTeamRoles(): HasMany
+	{
+		return $this->hasMany(MonitorTeamMember::class);
+	}
+
+	public function getRoleInMonitor(
+		Monitor $monitor
+	): ?MonitorUserRole
+	{
+		return $this->monitorTeamRoles()
+			->where('monitor_id', $monitor->id)
+			->first()
+			->role;
 	}
 
 	/**

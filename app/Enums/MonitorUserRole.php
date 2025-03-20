@@ -9,4 +9,37 @@ enum MonitorUserRole: string
 	case TESTER = 'tester';
 	case DEVELOPER = 'developer';
 	case MANAGER = 'manager';
+
+	public function canEdit(): bool
+	{
+		return match ($this) {
+			self::DEVELOPER => true,
+			self::MANAGER => true,
+			default => false,
+		};
+	}
+
+	public function canRun(): bool
+	{
+		return match ($this) {
+			self::VIEWER => false,
+			default => true,
+		};
+	}
+
+	public function canManageTeam(): bool
+	{
+		return match ($this) {
+			self::MANAGER => true,
+			default => false,
+		};
+	}
+
+	public function canDelete(): bool
+	{
+		return match ($this) {
+			self::MANAGER => true,
+			default => false,
+		};
+	}
 }

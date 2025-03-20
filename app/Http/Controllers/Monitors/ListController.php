@@ -62,7 +62,23 @@ class ListController
 				}
 			);
 		}
+		$this->applyPrivileges($query);
 		return $this->sortMonitors($query->get(), $sort);
+	}
+
+	protected function applyPrivileges(
+		Builder $query
+	): void
+	{
+		if (
+			auth()->user()->admin === false
+			&& !auth()->user()->hasGlobalPrivilege('monitors', 'view-all')
+		) {
+			$query->whereIn(
+				'id',
+				auth()->user()->monitorTeamRoles()->pluck('monitor_id')->toArray()
+			);
+		}
 	}
 
 	protected function getBasicQuery(): Builder

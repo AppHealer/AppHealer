@@ -55,6 +55,18 @@ class DetailController
 			);
 	}
 
+	public function needsPrivileges (
+		Monitor $monitor
+	): Response
+	{
+		return response()->view(
+			'monitors.needs-privileges',
+			[
+				'monitor' => $monitor,
+			]
+		);
+	}
+
 	/**
 	 * @return mixed[]
 	 */

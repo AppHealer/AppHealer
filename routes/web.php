@@ -38,22 +38,35 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 	Route::get('/monitors/list', [\AppHealer\Http\Controllers\Monitors\ListController::class, 'list'])->name('monitors.list');
 	Route::get('/monitors/{monitor}/timeout', [\AppHealer\Http\Controllers\Monitors\TimeoutGraphController::class, 'render'])->name('monitors.list.timeout.graph');
 	Route::get('/monitors/missing', [\AppHealer\Http\Controllers\Errors\NotFoundController::class, 'monitorNotFound'])->name('monitors.missing');
-	Route::get('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'create'])->name('monitors.create');
-	Route::post('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save.new');
+	Route::middleware('monitorPrivileges:create')->group(function() {
+		Route::get('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'create'])->name('monitors.create');
+		Route::post('/monitors/create', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save.new');
+	});
 
 	Route::missing(function(){return redirect(route('monitors.missing'));})->group(function() {
-		Route::get('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'edit'])->name('monitors.edit');
-		Route::post('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save');
-		Route::get('/monitors/{monitor}/schedule', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'schedule'])->name('monitors.schedule');
+
+		Route::middleware('monitorPrivileges:edit')->group(function() {
+			Route::get('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'edit'])->name('monitors.edit');
+			Route::post('/monitors/{monitor}/edit', [\AppHealer\Http\Controllers\Monitors\EditController::class, 'save'])->name('monitors.edit.save');
+		});
+
 		Route::get('/monitors/{monitor}', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'detail'])->name('monitors.detail');
 
-		Route::get('/monitors/{monitor}/team', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'list'])->name('monitors.team');
-		Route::get('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'add'])->name('monitors.team.add');
-		Route::post('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'addSubmit'])->name('monitors.team.add.submit');
-		Route::middleware('isNotMe')->group(function(){
-			Route::get('/monitors/{monitor}/team/remove/{user}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'removeFromTeam'])->name('monitors.team.remove');
-			Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign');
+		Route::middleware('monitorPrivileges:run')->group(function() {
+			Route::get('/monitors/{monitor}/schedule', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'schedule'])->name('monitors.schedule');
 		});
+
+		Route::get('/monitors/{monitor}/team', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'list'])->name('monitors.team');
+
+		Route::middleware('monitorPrivileges:team')->group(function() {
+			Route::get('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'add'])->name('monitors.team.add');
+			Route::post('/monitors/{monitor}/team/add', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'addSubmit'])->name('monitors.team.add.submit');
+			Route::middleware('isNotMe')->group(function(){
+				Route::get('/monitors/{monitor}/team/remove/{user}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'removeFromTeam'])->name('monitors.team.remove');
+				Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign');
+			});
+		});
+		Route::get('/monitors/{monitor}/needs-privileges', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'needsPrivileges'])->name('monitors.needs-privileges');
 	});
 
 	Route::get('/dashboard/lastLogins', [\AppHealer\Http\Controllers\Dashboard\LastLoginsController::class, 'index'])->name('dashboard.lastLogins');

@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class MonitorTeamMember extends Pivot
 {
+	protected $table = 'monitor_teams';
+
 	protected $casts = [
 		'role' => MonitorUserRole::class,
 	];
