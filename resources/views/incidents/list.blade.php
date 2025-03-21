@@ -21,7 +21,6 @@
 				<th class="d-none d-md-table-cell">{{__('Monitor')}}</th>
 				<th class="colStarted text-end">{{('Started')}}</th>
 				<th class="d-none d-md-table-cell colAssigned">{{('Assigned to')}}</th>
-
 			</tr>
 		</thead>
 		<tbody>
