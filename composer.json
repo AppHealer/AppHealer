@@ -1,13 +1,13 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "spaceangel/apphealer",
+    "name": "apphealer/apphealer",
     "type": "project",
     "description": "Apps health monitoring application",
     "keywords": [
         "laravel",
         "framework"
     ],
-    "license": "MIT",
+    "license": "AGPLv3",
     "require": {
         "php": "^8.4",
         "laravel/framework": "^11.31",
