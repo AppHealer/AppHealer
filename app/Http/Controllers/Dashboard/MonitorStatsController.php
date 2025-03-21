@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace AppHealer\Http\Controllers\Dashboard;
 
-use AppHealer\Models\Monitor;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -37,9 +37,9 @@ class MonitorStatsController
 		);
 	}
 
-	protected function buildFailedQuery(int $hours): Builder
+	protected function buildFailedQuery(int $hours): Builder|HasManyThrough
 	{
-		return Monitor::query()
+		return auth()->user()->monitors()
 			->whereHas('checks')
 			->withCount(
 				[
@@ -60,7 +60,7 @@ class MonitorStatsController
 
 	protected function buildSlowestQuery(int $hours): Builder
 	{
-		return Monitor::query()
+		return auth()->user()->monitors()
 			->whereHas('checks')
 			->withCount(
 				[

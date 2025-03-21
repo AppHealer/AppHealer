@@ -6,6 +6,7 @@ namespace AppHealer\Models;
 use AppHealer\Enums\MonitorUserRole;
 use AppHealer\Notifications\Users\PasswordReset;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticapable;
@@ -80,6 +81,24 @@ class User extends Authenticapable
 			->where('monitor_id', $monitor->id)
 			->first()
 			?->role;
+	}
+
+	public function monitors(): Builder
+	{
+		if (
+			$this->admin == true
+			|| $this->hasGlobalPrivilege('monitors', 'view-all')
+		) {
+			return Monitor::query();
+		}
+		return Monitor::query()
+			->whereIn(
+				'id',
+				MonitorTeamMember::query()->where(
+					'user_id',
+					$this->id
+				)->get('monitor_id')
+			);
 	}
 
 	/**
