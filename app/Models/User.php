@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace AppHealer\Models;
 
+use AppHealer\Enums\GlobalPrivilegesAction;
+use AppHealer\Enums\GlobalPrivilegesGroup;
 use AppHealer\Enums\MonitorUserRole;
 use AppHealer\Notifications\Users\PasswordReset;
 use Carbon\Carbon;
@@ -57,14 +59,14 @@ class User extends Authenticapable
 	}
 
 	public function hasGlobalPrivilege(
-		string $group,
-		string $privilege
+		GlobalPrivilegesGroup $group,
+		GlobalPrivilegesAction $privilege
 	): bool
 	{
 		return (
-			array_key_exists($group, $this->privileges) // @phpstan-ignore-line
-			&& array_key_exists($privilege, $this->privileges[$group])
-			&& $this->privileges[$group][$privilege] == 1
+			array_key_exists($group->value, $this->privileges) // @phpstan-ignore-line
+			&& array_key_exists($privilege->value, $this->privileges[$group->value])
+			&& $this->privileges[$group->value][$privilege->value] == 1
 		);
 	}
 
@@ -87,7 +89,10 @@ class User extends Authenticapable
 	{
 		if (
 			$this->admin == true
-			|| $this->hasGlobalPrivilege('monitors', 'view-all')
+			|| $this->hasGlobalPrivilege(
+				GlobalPrivilegesGroup::MONITORS,
+				GlobalPrivilegesAction::VIEW_ALL
+			)
 		) {
 			return Monitor::query();
 		}

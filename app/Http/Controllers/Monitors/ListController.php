@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace AppHealer\Http\Controllers\Monitors;
 
+use AppHealer\Enums\GlobalPrivilegesAction;
+use AppHealer\Enums\GlobalPrivilegesGroup;
 use AppHealer\Models\Monitor;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -72,7 +74,10 @@ class ListController
 	{
 		if (
 			auth()->user()->admin === false
-			&& !auth()->user()->hasGlobalPrivilege('monitors', 'view-all')
+			&& !auth()->user()->hasGlobalPrivilege(
+				GlobalPrivilegesGroup::MONITORS,
+				GlobalPrivilegesAction::VIEW_ALL
+			)
 		) {
 			$query->whereIn(
 				'id',
