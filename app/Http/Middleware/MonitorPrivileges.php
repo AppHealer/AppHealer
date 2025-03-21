@@ -50,6 +50,10 @@ class MonitorPrivileges
 	{
 		return match ($privilege) {
 			'create' => auth()->user()->hasGlobalPrivilege('monitors', 'create'),
+			'view' => (
+				auth()->user()->hasGlobalPrivilege('monitors', 'view-all')
+				|| auth()->user()->getRoleInMonitor($monitor) !== null
+			),
 			'edit' => (
 				auth()->user()->hasGlobalPrivilege('monitors', 'edit-all')
 				|| auth()->user()->getRoleInMonitor($monitor)->canEdit()
