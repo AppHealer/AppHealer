@@ -13,9 +13,9 @@
 				<td>
 					<a href="{{route('monitors.detail', ['monitor' => $monitor])}}">{{$monitor->name}}</a>
 				</td>
-				<td style="width: 85px;" class="text-end align-middle">{{number_format($monitor->timeout_avg, 0, '.', ' ')}} ms</td>
-				<td style="width: 85px;" class="text-end align-middle">{{number_format($monitor->timeout_min, 0, '.', ' ')}} ms</td>
-				<td style="width: 85px;" class="text-end align-middle">{{number_format($monitor->timeout_max, 0, '.', ' ')}} ms</td>
+				<td style="width: 95px;" class="text-end align-middle">{{number_format($monitor->timeout_avg, 0, '.', ' ')}} ms</td>
+				<td style="width: 95px;" class="text-end align-middle">{{number_format($monitor->timeout_min, 0, '.', ' ')}} ms</td>
+				<td style="width: 95px;" class="text-end align-middle">{{number_format($monitor->timeout_max, 0, '.', ' ')}} ms</td>
 			</tr>
 		@endforeach
 	</tbody>
