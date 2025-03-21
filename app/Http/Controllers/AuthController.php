@@ -23,7 +23,9 @@ class AuthController
 		$credentials = $request->only('email', 'password');
 		if (auth()->attempt($credentials)) {
 			$request->session()->regenerate();
-			return redirect()->route('dashboard');
+			return redirect()->intended(
+				route('dashboard')
+			);
 		}
 		return back()->withErrors([
 			'email' => __('Bad email or password'),
