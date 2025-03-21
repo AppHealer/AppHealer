@@ -6,10 +6,11 @@ namespace AppHealer\Notifications\Users;
 use AppHealer\Mail\Users\UserCreated as UserCreatedMail;
 use AppHealer\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notification;
 
-class UserCreated extends Notification
+class UserCreated extends Notification implements ShouldQueue
 {
 	use Queueable;
 

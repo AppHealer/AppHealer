@@ -6,10 +6,11 @@ namespace AppHealer\Notifications\Users;
 use AppHealer\Mail\Users\PasswordReset as PasswordResetMail;
 use AppHealer\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notification;
 
-class PasswordReset extends Notification
+class PasswordReset extends Notification implements ShouldQueue
 {
 	use Queueable;
 

@@ -5,10 +5,11 @@ namespace AppHealer\Notifications;
 
 use AppHealer\Models\User;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Notifications\Notification;
 
-class Installed extends Notification
+class Installed extends Notification implements ShouldQueue
 {
 	use Queueable;
 
