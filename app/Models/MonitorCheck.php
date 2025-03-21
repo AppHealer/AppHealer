@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class MonitorCheck extends Model
 {
+
 	protected $table = 'monitor_checks';
 
 	public $timestamps = true;

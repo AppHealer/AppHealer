@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Http;
 class WebsiteCheck implements ShouldQueue
 {
 	use Queueable;
+
 	public int $timeout = 600;
 
 	public function __construct(

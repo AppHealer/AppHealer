@@ -1,21 +1,5 @@
 <?php
-
-
-
-
-
-
-
-
-
-
 declare(strict_types=1);
-
-
-
-
-
-
 
 namespace AppHealer\Console\Commands\QA;
 
@@ -23,6 +7,7 @@ use Illuminate\Console\Command;
 
 class QaPhpStan extends Command
 {
+
 	/**
 	 * The name and signature of the console command.
 	 *

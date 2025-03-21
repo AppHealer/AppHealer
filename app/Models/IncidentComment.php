@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IncidentComment extends Model
 {
+
 	protected $table = 'incident_comments';
+
 	protected $casts = [];
+
 	protected $fillable = [
 		'incident_id',
 		'comment',

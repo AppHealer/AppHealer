@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class QaAllCommand extends Command
 {
+
 	/**
 	 * The name and signature of the console command.
 	 *

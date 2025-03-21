@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserLoginAudit extends Model
 {
+
 	protected $table = 'users_login_audit';
 
 	public $timestamps = true;
+
 	protected $fillable = [
 		'browser',
 		'failed',

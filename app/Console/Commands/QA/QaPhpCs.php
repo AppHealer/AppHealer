@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 
 class QaPhpCs extends Command
 {
+
 	/**
 	 * The name and signature of the console command.
 	 *

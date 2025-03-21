@@ -13,6 +13,7 @@ use Illuminate\Support\Collection;
 
 class Incident extends Model
 {
+
 	protected $table = 'incidents';
 
 	protected $fillable = [

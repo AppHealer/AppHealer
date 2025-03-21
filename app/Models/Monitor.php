@@ -15,9 +15,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Monitor extends Model
 {
+
 	protected $table = 'monitors';
 
 	public $timestamps = true;
+
 	protected $fillable = [
 		'endpoint',
 		'name',

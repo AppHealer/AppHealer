@@ -15,6 +15,7 @@ use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 class User extends Authenticapable
 {
+
 	use HasFactory, Notifiable, HasRolesAndAbilities;
 
 	/**
@@ -31,7 +32,6 @@ class User extends Authenticapable
 		'phone',
 		'privileges',
 	];
-
 
 	/**
 	 * The attributes that should be hidden for serialization.
