@@ -37,12 +37,15 @@ class IncidentController
 				'monitor_id',
 				auth()->user()->monitorTeamRoles()->pluck('monitor_id')->toArray()
 			);
+			$monitors = auth()->user()->monitors();
+		} else {
+			$monitors = Monitor::query();
 		}
 		return response()->view(
 			'incidents.list',
 			[
 				'incidents' => $incidents->paginate(10),
-				'monitors' => Monitor::query()->whereHas('incidents')->get(),
+				'monitors' => $monitors->whereHas('incidents')->get(),
 			]
 		);
 	}
