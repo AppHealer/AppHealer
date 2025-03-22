@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace AppHealer\Http\Controllers;
 
+use AppHealer\Enums\GlobalPrivilegesAction;
+use AppHealer\Enums\GlobalPrivilegesGroup;
 use AppHealer\Enums\IncidentState;
 use AppHealer\Http\Requests\Incidents\AddCommentRequest;
 use AppHealer\Http\Requests\Incidents\IncidentCreatedRequest;
@@ -24,6 +26,18 @@ class IncidentController
 			->orderBy('created_at', 'desc');
 		$this->applySearchFilter($incidents);
 
+		if (
+			auth()->user()->admin === false
+			&& !auth()->user()->hasGlobalPrivilege(
+				GlobalPrivilegesGroup::MONITORS,
+				GlobalPrivilegesAction::VIEW_ALL
+			)
+		) {
+			$incidents->whereIn(
+				'monitor_id',
+				auth()->user()->monitorTeamRoles()->pluck('monitor_id')->toArray()
+			);
+		}
 		return response()->view(
 			'incidents.list',
 			[
