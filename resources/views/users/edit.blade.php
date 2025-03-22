@@ -2,7 +2,7 @@
 	'_layouts.app',
 	 [
 		'page' => 'users',
-		'title' => isset($user) ?  __('Edit user :name', ['name' => $user->name]) : __('New user')
+		'title' => isset($user) ?  __(':name : edit', ['name' => $user->name]) : __('New user')
 	]
 )
 @section('content')

@@ -2,7 +2,7 @@
 	'_layouts.app',
 	[
 		'page' => 'monitors',
-		'title' => isset($monitor) ?  __('Edit monitor :name', ['name' => $monitor->name]) : __('New monitor')
+		'title' => isset($monitor) ?  __(':name : Edit', ['name' => $monitor->name]) : __('New monitor')
 	]
 )
 @section('content')
