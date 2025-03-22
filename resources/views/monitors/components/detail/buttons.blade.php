@@ -1,3 +1,7 @@
+@php
+	use AppHealer\Enums\GlobalPrivilegesGroup;
+	use AppHealer\Enums\GlobalPrivilegesAction;
+@endphp
 <a class="btn" href="{{route('monitors.incidents.create', ['monitor' => $monitor])}}">{{__('New incident')}}</a>
 @if(
 	auth()->user()->admin

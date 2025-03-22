@@ -6,10 +6,6 @@
 	]
 )
 
-@php
-	use AppHealer\Enums\GlobalPrivilegesGroup;
-	use AppHealer\Enums\GlobalPrivilegesAction;
-@endphp
 @section('content')
 	<div class="mb-4">
 	@include('monitors.components.detail.buttons')
