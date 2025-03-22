@@ -68,6 +68,11 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 				Route::get('/monitors/{monitor}/team/{user}/{role}', [\AppHealer\Http\Controllers\Monitors\TeamController::class, 'assignRole'])->name('monitors.team.assign');
 			});
 		});
+
+		Route::middleware('monitorPrivileges:view')->group(function() {
+			Route::get('/monitor/{monitor}/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'create'])->name('monitors.incidents.create');
+			Route::post('/monitor/{monitor}/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'save'])->name('monitors.incidents.create.submit');
+		});
 		Route::get('/monitors/{monitor}/needs-privileges', [\AppHealer\Http\Controllers\Monitors\DetailController::class, 'needsPrivileges'])->name('monitors.needs-privileges');
 	});
 

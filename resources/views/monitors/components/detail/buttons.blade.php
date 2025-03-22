@@ -1,3 +1,4 @@
+<a class="btn" href="{{route('monitors.incidents.create', ['monitor' => $monitor])}}">{{__('New incident')}}</a>
 @if(
 	auth()->user()->admin
 	|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::EDIT_ALL)

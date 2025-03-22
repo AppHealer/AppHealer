@@ -1,6 +1,8 @@
 @extends('_layouts.app', ['page' => 'incidents', 'title' => 'New incident'])
 @section('content')
-	<form class="form" method="post" action="{{route('incidents.create.submit')}}">
+	<form class="form" method="post"
+		  action="{{$monitor->id !== null ? route('monitors.incidents.create.submit', ['monitor' => $monitor]) : route('incidents.create.submit')}}"
+		>
 		@csrf
 		<fieldset class="border p-3 mb-3">
 			<div class="row mb-2">
@@ -8,16 +10,20 @@
 					<label class="col-form-label" for="fieldMonitor">{{__('Monitor')}}</label>
 				</div>
 				<div class="col-md-6 col-sm-12">
-					<select name="monitor_id" id="fieldMonitor" class="form-select {{$errors->hasAny('monitor_id') ? 'is-invalid' : ''}}">
-						<option disabled selected hidden>{{__('Select monitor')}}</option>
-						@foreach($monitors as $monitor)
-							<option value="{{$monitor->id}}">{{$monitor->name}}</option>
-						@endforeach
-					</select>
-					@if($errors->hasAny('monitor_id'))
-						<div class="invalid-feedback">
-							{{  $errors->first('monitor_id') }}
-						</div>
+					@if ($monitor->id != null)
+						<span class="fw-bold">{{$monitor->name}}</span>
+					@else
+						<select name="monitor_id" id="fieldMonitor" class="form-select {{$errors->hasAny('monitor_id') ? 'is-invalid' : ''}}">
+							<option disabled selected hidden>{{__('Select monitor')}}</option>
+							@foreach($monitors as $monitor)
+								<option value="{{$monitor->id}}">{{$monitor->name}}</option>
+							@endforeach
+						</select>
+						@if($errors->hasAny('monitor_id'))
+							<div class="invalid-feedback">
+								{{  $errors->first('monitor_id') }}
+							</div>
+						@endif
 					@endif
 				</div>
 			</div>

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AppHealer\Http\Requests\Incidents;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class IncidentCreatedRequest extends FormRequest
 {
@@ -15,7 +16,11 @@ class IncidentCreatedRequest extends FormRequest
 	{
 		return [
 			'caption'  => 'required|min:6',
-			'monitor_id' => 'required|integer|exists:monitors,id',
+			'monitor_id' => [
+				'exists:monitors,id',
+				'integer',
+				Rule::requiredIf(request('monitor') === null),
+			],
 		];
 	}
 }

@@ -33,11 +33,14 @@ class IncidentController
 		);
 	}
 
-	public function create(): Response
+	public function create(
+		?Monitor $monitor,
+	): Response
 	{
 		return response()->view(
 			'incidents.create',
 			[
+				'monitor' => $monitor,
 				'monitors' => Monitor::query()->orderBy('name')->get(),
 				'users' => User::query()->orderBy('name')->get(),
 			]
@@ -45,7 +48,8 @@ class IncidentController
 	}
 
 	public function save(
-		IncidentCreatedRequest $request
+		IncidentCreatedRequest $request,
+		?Monitor $monitor
 	): RedirectResponse
 	{
 		$incident = new Incident();
@@ -53,6 +57,9 @@ class IncidentController
 			$request->all()
 		);
 		$incident->createdBy()->associate(auth()->user());
+		if ($monitor->id) {
+			$incident->monitor_id = $monitor->id; //phpcs:ignore
+		}
 		if (request('assigned_user')) {
 			$incident->assignedTo()->associate(
 				User::where('id', request('assigned_user'))->first()
@@ -68,10 +75,7 @@ class IncidentController
 			->redirectTo(
 				$this->getRouteToDetail($incident)
 			)
-			->with(
-				'message',
-				__('Incident successfully created')
-			);
+			->with('message', __('Incident successfully created'));
 	}
 
 	public function detail(Incident $incident): Response
