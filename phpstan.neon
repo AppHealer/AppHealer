@@ -26,3 +26,7 @@ parameters:
 			count: 2
 		-
 			message: '#Call to an undefined method Illuminate\\Database\\Eloquent\\Relations\\HasMany::notClosed\(\).#'
+		-
+			path: app/Http/Requests/Incidents/IncidentCreatedRequest.php
+			count: 1
+			identifier: argument.type
