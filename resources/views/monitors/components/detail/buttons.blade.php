@@ -23,4 +23,5 @@
 		{{__('View team')}}
 	@endif
 </a>
+<a class="btn" href="{{route('incidents')}}?monitor={{$monitor->id}}">{{__('Incidents')}}</a>
 </div>
