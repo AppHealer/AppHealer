@@ -8,7 +8,9 @@
 
 @section('content')
 	<div class="mb-4">
-	@include('monitors.components.detail.buttons')
+		@include('monitors.components.detail.buttons')
+	</div>
+	
 	@include('monitors.components.detail.datetimeFilter')
 
 	@if ($summary->getTotal() !== 0)

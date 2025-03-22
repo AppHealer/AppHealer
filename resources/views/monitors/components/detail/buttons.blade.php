@@ -2,14 +2,7 @@
 	use AppHealer\Enums\GlobalPrivilegesGroup;
 	use AppHealer\Enums\GlobalPrivilegesAction;
 @endphp
-<a class="btn" href="{{route('monitors.incidents.create', ['monitor' => $monitor])}}">{{__('New incident')}}</a>
-@if(
-	auth()->user()->admin
-	|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::EDIT_ALL)
-	|| auth()->user()->getRoleInMonitor($monitor)?->canEdit()
-)
-	<a class="btn" href="{{route('monitors.edit', ['monitor' => $monitor])}}">{{__('Edit monitor')}}</a>
-@endif
+
 @if(
 	auth()->user()->admin
 	|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::RUN_ALL)
@@ -17,6 +10,18 @@
 )
 	<a class="btn" href="{{route('monitors.schedule', ['monitor' => $monitor])}}">{{__('Check now')}}</a>
 @endif
+
+@if(
+	auth()->user()->admin
+	|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::INCIDENT_CREATE)
+	|| auth()->user()->getRoleInMonitor($monitor)?->canCreateIncident()
+)
+	<a class="btn" href="{{route('monitors.incidents.create', ['monitor' => $monitor])}}">{{__('New incident')}}</a>
+@endif
+
+<a class="btn" href="{{route('incidents')}}?monitor={{$monitor->id}}">{{__('Incidents')}}</a>
+
+
 <a class="btn" href="{{route('monitors.team', ['monitor' => $monitor])}}">
 	@if(
 		auth()->user()->admin
@@ -28,5 +33,11 @@
 		{{__('View team')}}
 	@endif
 </a>
-<a class="btn" href="{{route('incidents')}}?monitor={{$monitor->id}}">{{__('Incidents')}}</a>
-</div>
+
+@if(
+	auth()->user()->admin
+	|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::EDIT_ALL)
+	|| auth()->user()->getRoleInMonitor($monitor)?->canEdit()
+)
+	<a class="btn" href="{{route('monitors.edit', ['monitor' => $monitor])}}">{{__('Edit monitor')}}</a>
+@endif
