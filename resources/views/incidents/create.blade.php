@@ -1,4 +1,8 @@
 @extends('_layouts.app', ['page' => 'incidents', 'title' => 'New incident'])
+@php
+	use AppHealer\Enums\GlobalPrivilegesAction;
+	use AppHealer\Enums\GlobalPrivilegesGroup
+@endphp
 @section('content')
 	<form class="form" method="post"
 		  action="{{$monitor->id !== null ? route('monitors.incidents.create.submit', ['monitor' => $monitor]) : route('incidents.create.submit')}}"
@@ -16,7 +20,13 @@
 						<select name="monitor_id" id="fieldMonitor" class="form-select {{$errors->hasAny('monitor_id') ? 'is-invalid' : ''}}">
 							<option disabled selected hidden>{{__('Select monitor')}}</option>
 							@foreach($monitors as $monitor)
-								<option value="{{$monitor->id}}">{{$monitor->name}}</option>
+								@if (
+									auth()->user()->admin
+									|| auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::INCIDENT_CREATE)
+									|| auth()->user()->getRoleInMonitor($monitor)?->canCreateIncident()
+								)
+									<option value="{{$monitor->id}}">{{$monitor->name}}</option>
+								@endif
 							@endforeach
 						</select>
 						@if($errors->hasAny('monitor_id'))
