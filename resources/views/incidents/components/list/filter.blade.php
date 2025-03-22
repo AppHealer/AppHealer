@@ -34,7 +34,7 @@
 		<label class="d-block" for="fieldTo">{{__('Created to date/time')}}</label>
 		<input id="fieldTo" type="datetime-local" class="form-control d-block" name="dateTo" value="{{request('dateTo')}}">
 	</div>
-	<div class="col-1 col-lg-auto">
+	<div class="col-1 col-lg-auto p-0">
 		<div>&nbsp;</div>
 		<button type="submit" class="btn w-auto"><span class="fa fa-search"></span></button>
 	</div>
