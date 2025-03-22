@@ -46,7 +46,7 @@ class MonitorPrivileges
 	}
 
 	public function can( //phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
-		Monitor $monitor,
+		?Monitor $monitor,
 		string $privilege,
 	): bool
 	{
