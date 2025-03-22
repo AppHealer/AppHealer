@@ -69,7 +69,7 @@ Route::middleware(['auth', 'isNotLocked', 'installed'])->group(function() {
 			});
 		});
 
-		Route::middleware('monitorPrivileges:view')->group(function() {
+		Route::middleware('monitorPrivileges:incident-create')->group(function() {
 			Route::get('/monitor/{monitor}/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'create'])->name('monitors.incidents.create');
 			Route::post('/monitor/{monitor}/incidents/create', [\AppHealer\Http\Controllers\IncidentController::class, 'save'])->name('monitors.incidents.create.submit');
 		});

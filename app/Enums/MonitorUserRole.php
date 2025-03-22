@@ -42,4 +42,12 @@ enum MonitorUserRole: string
 			default => false,
 		};
 	}
+
+	public function canCreateIncident(): bool
+	{
+		return match ($this) {
+			self::VIEWER => false,
+			default => true,
+		};
+	}
 }

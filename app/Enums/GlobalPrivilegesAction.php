@@ -11,4 +11,5 @@ enum GlobalPrivilegesAction: string
 	case DELETE_ALL = 'delete-all';
 	case RUN_ALL = 'run-all';
 	case TEAM_ALL = 'team-all';
+	case INCIDENT_CREATE = 'incident-create';
 }

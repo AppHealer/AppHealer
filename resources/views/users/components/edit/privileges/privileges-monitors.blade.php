@@ -162,7 +162,35 @@
 						? 'disabled' : ''
 					}}
 			>
-			<label class="form-check-label" for="fieldPrivMonitorRunAll">{{__('Run all checks')}}</label>
+
+
+			<input class="form-check-input js-privileges-monitors-viewall-dependent" type="checkbox" name="privileges[{{GlobalPrivilegesGroup::MONITORS->value}}][{{GlobalPrivilegesAction::INCIDENT_CREATE->value}}]" value="1"  id="fieldPrivMonitorIncidentCreate"
+					{{
+						(
+							is_array(old('privileges'))
+							&& (old('admin') === '0')
+							&& old('privileges')[GlobalPrivilegesGroup::MONITORS->value][GlobalPrivilegesAction::INCIDENT_CREATE->value] === '1'
+						) || (
+							old('privileges') === null
+							&& isset($user)
+							&& $user->admin === false
+							&& $user->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::INCIDENT_CREATE)
+						) ? 'checked' : ''
+					}}
+
+					{{
+						(
+							is_array(old('privileges'))
+							&& old('privileges')[GlobalPrivilegesGroup::MONITORS->value][GlobalPrivilegesAction::VIEW_ALL->value] == '0'
+						) || (
+							old('privileges') === null
+							&& isset($user)
+							&& !$user->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::VIEW_ALL)
+						) || (!isset($user))
+						? 'disabled' : ''
+					}}
+			>
+			<label class="form-check-label" for="fieldPrivMonitorIncidentCreate">{{__('Create incidents')}}</label>
 		</div>
 	</div>
 </div>

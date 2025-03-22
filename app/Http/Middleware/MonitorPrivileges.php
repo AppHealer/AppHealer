@@ -45,16 +45,17 @@ class MonitorPrivileges
 		}
 	}
 
-	public function can(
+	public function can( //phpcs:ignore SlevomatCodingStandard.Functions.FunctionLength
 		Monitor $monitor,
 		string $privilege,
 	): bool
 	{
+		//phpcs:disable Generic.Files.LineLength,SlevomatCodingStandard.Functions.RequireMultiLineCall
 		return match ($privilege) {
-			//phpcs:disable
+
 			'create' => auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::CREATE),
 			'view' => (
-				auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::VIEW_ALL) //phpcs:disable
+				auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::VIEW_ALL)
 				|| auth()->user()->getRoleInMonitor($monitor) !== null
 			),
 			'edit' => (
@@ -73,8 +74,13 @@ class MonitorPrivileges
 				auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::RUN_ALL)
 				|| auth()->user()->getRoleInMonitor($monitor)->canRun()
 			),
+			'incident-create' => (
+				auth()->user()->hasGlobalPrivilege(GlobalPrivilegesGroup::MONITORS, GlobalPrivilegesAction::INCIDENT_CREATE)
+				|| auth()->user()->getRoleInMonitor($monitor)->canCreateIncident()
+			),
 			default => false
-			//phpcs:enable
+
 		};
+		//phpcs:enable Generic.Files.LineLength, phpcs:enable SlevomatCodingStandard.Functions.RequireMultiLineCall
 	}
 }
