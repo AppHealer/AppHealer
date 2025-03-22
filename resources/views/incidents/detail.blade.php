@@ -1,4 +1,10 @@
-@extends('_layouts.app', ['page' => 'incidents', 'title' => __('Incident') . ' #'. $incident->id])
+@extends(
+	'_layouts.app',
+	 [
+		'page' => 'incidents',
+		'title' => $incident->caption
+		]
+	)
 @section('content')
 	<div class="incidentDetail">
 		@include('incidents.components.detail.header')

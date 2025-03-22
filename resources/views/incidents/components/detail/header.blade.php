@@ -1,5 +1,14 @@
 <fieldset class="border border-black mb-4 p-3">
-	<legend class="mb-3 p-2 pt-0 pb-0 h3 fw-bold row">{{$incident->caption}}</legend>
+	<div class="row mb-2">
+		<div class="col-md-2 col-4">
+			{{__('Monitor')}}
+		</div>
+		<div class="col-8 col-md-4">
+			<a class="text-black text-decoration-underline" href="{{route('monitors.detail', ['monitor' => $incident->monitor])}}">
+				{{$incident->monitor->name}}
+			</a>
+		</div>
+	</div>
 	<div class="row mb-2">
 		<div class="col-md-2 col-4">
 			{{__('State')}}
